@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikhilfx | Official E-Commerce Store</title>
+    <title>Nikhilfx | India's Mega Online Shopping Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .festive-gradient {
-            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #4f46e5 100%);
+            background: linear-gradient(135deg, #2874f0 0%, #1e40af 100%);
         }
         @keyframes wheelSpin {
             0% { transform: rotate(0deg); }
@@ -23,204 +23,226 @@
     <!-- SIGNUP / WELCOME MODAL -->
     <div id="welcome-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
         <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 text-center">
-            <div class="w-16 h-16 festive-gradient rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg relative">
+            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <span class="text-white text-2xl font-bold">NX</span>
             </div>
-            <h2 class="text-2xl font-extrabold text-gray-900 mb-2">Welcome to Nikhilfx</h2>
-            <p class="text-sm text-gray-600 mb-6">Enter your 10-digit mobile number to access your secure account, live wallet, and orders.</p>
+            <h2 class="text-2xl font-extrabold text-gray-900 mb-1">Nikhilfx</h2>
+            <p class="text-xs text-blue-600 font-bold mb-4">India ka Apni Dukaan</p>
+            <p class="text-sm text-gray-600 mb-6">Enter your 10-digit mobile number to login or sign up</p>
             
             <form onsubmit="handleSignup(event)" class="space-y-4">
-                <div class="flex rounded-lg border border-gray-300 overflow-hidden focus-within:ring-2 focus-within:ring-pink-500">
+                <div class="flex rounded-lg border border-gray-300 overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
                     <span class="bg-gray-100 px-3 py-3 text-gray-500 font-medium text-sm flex items-center">+91</span>
-                    <input type="text" id="mobile-input" maxlength="10" placeholder="Enter mobile number" 
+                    <input type="text" id="mobile-input" maxlength="10" placeholder="Enter Mobile Number" 
                         class="w-full px-4 py-3 outline-none text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                 </div>
-                <button type="submit" class="w-full py-3 festive-gradient text-white font-bold rounded-lg shadow-md hover:opacity-95 transition">
-                    Continue & Login
+                <button type="submit" class="w-full py-3 bg-[#fb641b] text-white font-bold rounded-lg shadow-md hover:bg-orange-600 transition">
+                    Continue
                 </button>
             </form>
         </div>
     </div>
 
     <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 hidden bg-green-600 text-white px-6 py-3 rounded-full shadow-2xl font-medium text-sm"></div>
+    <div id="toast" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 hidden bg-gray-900 text-white px-6 py-3 rounded-full shadow-2xl font-medium text-sm"></div>
 
     <!-- MAIN APP INTERFACE -->
-    <div id="main-app" class="pb-20 max-w-md mx-auto bg-gray-50 min-h-screen relative shadow-xl hidden">
+    <div id="main-app" class="pb-24 max-w-md mx-auto bg-gray-100 min-h-screen relative shadow-xl hidden">
         
         <!-- HEADER -->
-        <header class="festive-gradient text-white p-3 sticky top-0 z-30 shadow-md">
+        <header class="bg-[#2874f0] text-white p-3 sticky top-0 z-30 shadow-md">
             <div class="flex items-center justify-between mb-2">
-                <div class="flex items-center space-x-2">
-                    <span class="bg-yellow-400 text-blue-900 font-black px-2 py-0.5 rounded text-sm italic shadow">Nikhilfx</span>
+                <div class="flex items-center space-x-1">
+                    <span class="text-yellow-400 font-black text-lg italic tracking-tighter">Nikhilfx</span>
+                    <span class="text-[10px] text-yellow-300 italic font-semibold">Explore Plus</span>
                 </div>
-                <div class="flex items-center space-x-3 text-xs">
-                    <span class="bg-white/20 px-2 py-1 rounded-full font-semibold">⚡ Value 365</span>
-                </div>
-            </div>
-
-            <div class="text-xs text-white/90 flex items-center justify-between mb-2">
-                <div class="flex items-center truncate">
-                    <svg class="w-3.5 h-3.5 mr-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    <span class="truncate">HOME • Veligallu, AP</span>
-                </div>
-                <div class="bg-yellow-400 text-yellow-900 font-bold px-2 py-0.5 rounded-full text-[10px] shrink-0">
-                    🪙 <span id="coin-balance">50</span> Coins
+                <div class="flex items-center space-x-2 text-xs">
+                    <span class="bg-blue-800 px-2 py-1 rounded font-semibold">Seller</span>
+                    <span class="bg-blue-800 px-2 py-1 rounded font-semibold">🪙 <span id="coin-balance">50</span></span>
                 </div>
             </div>
 
+            <!-- SEARCH BAR -->
             <div class="relative">
-                <input type="text" placeholder="Search for Products, Brands and More..." class="w-full py-2 pl-9 pr-4 rounded-lg text-gray-800 text-sm bg-white shadow-inner outline-none">
+                <input type="text" id="search-box" oninput="filterSearch(this.value)" placeholder="Search for Products, Brands and More" class="w-full py-2 pl-9 pr-4 rounded text-gray-800 text-sm bg-white shadow-inner outline-none">
                 <svg class="w-4 h-4 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
         </header>
 
-        <!-- VIEWS -->
+        <!-- VIEWS CONTAINER -->
         
         <!-- HOME VIEW -->
-        <div id="view-home" class="tab-view">
-            <div class="bg-white py-3 px-2 flex space-x-4 overflow-x-auto shadow-sm text-center">
+        <div id="view-home" class="tab-view space-y-2">
+            <!-- CATEGORIES SCROLL -->
+            <div class="bg-white py-3 px-2 flex space-x-5 overflow-x-auto shadow-sm text-center scrollbar-none">
                 <div onclick="switchTab('categories', document.getElementById('nav-categories'))" class="shrink-0 cursor-pointer">
-                    <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-1 text-pink-600 font-bold">🔥</div>
-                    <span class="text-[11px] font-medium text-gray-700">Deals</span>
+                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold text-lg">🔥</div>
+                    <span class="text-[11px] font-medium text-gray-700">Top Offers</span>
                 </div>
                 <div onclick="switchTab('categories', document.getElementById('nav-categories'))" class="shrink-0 cursor-pointer">
-                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold">👕</div>
+                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold text-lg">👕</div>
                     <span class="text-[11px] font-medium text-gray-700">Fashion</span>
                 </div>
                 <div onclick="switchTab('categories', document.getElementById('nav-categories'))" class="shrink-0 cursor-pointer">
-                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-1 text-purple-600 font-bold">📱</div>
+                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold text-lg">📱</div>
                     <span class="text-[11px] font-medium text-gray-700">Mobiles</span>
                 </div>
                 <div onclick="switchTab('categories', document.getElementById('nav-categories'))" class="shrink-0 cursor-pointer">
-                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-1 text-yellow-600 font-bold">💻</div>
+                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold text-lg">💻</div>
                     <span class="text-[11px] font-medium text-gray-700">Electronics</span>
                 </div>
+                <div onclick="switchTab('categories', document.getElementById('nav-categories'))" class="shrink-0 cursor-pointer">
+                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold text-lg">🏠</div>
+                    <span class="text-[11px] font-medium text-gray-700">Home</span>
+                </div>
             </div>
 
-            <!-- HERO BANNER -->
-            <div class="m-3 festive-gradient rounded-xl p-4 text-white shadow-lg relative overflow-hidden flex items-center justify-between">
-                <div class="max-w-[55%] z-10">
-                    <div class="inline-block bg-yellow-400 text-blue-900 font-extrabold text-xs px-2 py-0.5 rounded italic mb-1">NIKHILFX SPECIAL</div>
-                    <h3 class="text-xs font-bold opacity-95 mb-2">Mega Sale Live Now</h3>
-                    <p class="text-xs text-yellow-200 font-semibold mb-2">Earn 10 SuperCoins per order!</p>
+            <!-- HERO BANNER WITH NIKHIL PHOTO -->
+            <div class="mx-2 bg-gradient-to-r from-blue-700 to-indigo-800 rounded-lg p-4 text-white shadow relative overflow-hidden flex items-center justify-between">
+                <div class="max-w-[60%] z-10">
+                    <span class="bg-yellow-400 text-blue-900 font-black text-[10px] px-2 py-0.5 rounded uppercase">Nikhilfx Exclusive</span>
+                    <h3 class="text-sm font-bold mt-1">Big Billion Dhamaka</h3>
+                    <p class="text-xs text-yellow-300 font-semibold mt-0.5">Extra 10% Off + SuperCoins</p>
                 </div>
                 <div class="relative shrink-0">
-                    <div class="w-28 h-28 rounded-full border-2 border-yellow-400 overflow-hidden shadow-xl bg-white">
+                    <div class="w-24 h-24 rounded-full border-2 border-yellow-400 overflow-hidden shadow-md bg-white">
                         <img src="nikhil.jpg" alt="Nikhil" class="w-full h-full object-cover">
                     </div>
-                    <div class="absolute -bottom-1 -right-1 w-10 h-10 festive-gradient rounded-full flex items-center justify-center border-2 border-white shadow-lg z-20">
-                        <span class="text-white text-base font-bold">NX</span>
-                    </div>
+                    <div class="absolute -bottom-1 -right-1 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center border-2 border-white shadow text-[10px] font-bold">NX</div>
                 </div>
             </div>
 
-            <!-- PRODUCT CATALOG -->
-            <div class="mx-3 mb-6">
-                <h3 class="font-bold text-gray-800 text-sm mb-3">Trending Products</h3>
-                <div class="grid grid-cols-2 gap-3" id="product-grid">
+            <!-- PRODUCTS GRID -->
+            <div class="mx-2 bg-white rounded-lg p-3 shadow-sm">
+                <h3 class="font-bold text-gray-800 text-xs mb-3 uppercase tracking-wider text-gray-500">Suggested for You</h3>
+                <div class="grid grid-cols-2 gap-2" id="product-grid">
                     <!-- Populated via JS -->
                 </div>
             </div>
         </div>
 
         <!-- PRODUCT DETAILS VIEW -->
-        <div id="view-product-detail" class="tab-view hidden pb-12">
-            <div class="bg-white p-3 flex items-center space-x-2 border-b border-gray-200 sticky top-[108px] z-20 shadow-sm">
-                <button onclick="switchTab('home', document.getElementById('nav-home'))" class="text-gray-700 font-bold text-sm flex items-center">
-                    ← Back
-                </button>
-                <span class="text-xs font-semibold text-gray-500 truncate">Product Overview</span>
+        <div id="view-product-detail" class="tab-view hidden bg-white pb-16">
+            <div class="bg-[#2874f0] text-white p-3 flex items-center space-x-3 sticky top-[48px] z-20 shadow">
+                <button onclick="switchTab('home', document.getElementById('nav-home'))" class="font-bold text-sm">←</button>
+                <span class="text-xs font-semibold truncate">Product Details</span>
             </div>
-            <div id="product-detail-content" class="p-3 space-y-4">
+            <div id="product-detail-content" class="p-3 space-y-3">
                 <!-- Populated via JS -->
             </div>
         </div>
 
-        <!-- PLAY VIEW (SPIN WHEEL) -->
-        <div id="view-play" class="tab-view hidden p-4 text-center space-y-4">
-            <h2 class="text-lg font-bold text-gray-800">🎮 Nikhilfx SuperCoin Zone</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 space-y-4">
-                <div class="relative w-48 h-48 mx-auto flex items-center justify-center">
-                    <!-- Spinner Wheel Graphic -->
-                    <div id="wheel" class="spinning-wheel w-full h-full rounded-full border-4 border-yellow-500 festive-gradient flex items-center justify-center shadow-inner relative">
-                        <span class="absolute text-white font-black text-sm top-2">20 Coins</span>
-                        <span class="absolute text-white font-black text-sm bottom-2">10 Coins</span>
-                        <span class="absolute text-white font-black text-sm left-2">50 Coins</span>
-                        <span class="absolute text-white font-black text-sm right-2">5 Coins</span>
-                        <div class="w-12 h-12 bg-white rounded-full shadow flex items-center justify-center font-bold text-blue-900 text-xs">SPIN</div>
+        <!-- PLAY / SUPERCOIN ZONE VIEW -->
+        <div id="view-play" class="tab-view hidden p-3 space-y-3">
+            <div class="bg-[#2874f0] text-white p-4 rounded-lg shadow text-center space-y-1">
+                <h2 class="text-base font-bold">Nikhilfx Game Zone</h2>
+                <p class="text-xs text-blue-100">Play games & win real SuperCoins instantly</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm text-center space-y-4">
+                <div class="relative w-40 h-40 mx-auto flex items-center justify-center">
+                    <div id="wheel" class="spinning-wheel w-full h-full rounded-full border-4 border-yellow-500 bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-inner relative text-white font-bold text-xs">
+                        <span class="absolute top-2">20 Coins</span>
+                        <span class="absolute bottom-2">10 Coins</span>
+                        <span class="absolute left-2">50 Coins</span>
+                        <span class="absolute right-2">5 Coins</span>
+                        <div class="w-10 h-10 bg-white text-blue-900 rounded-full shadow flex items-center justify-center text-[10px] font-black">SPIN</div>
                     </div>
-                    <!-- Pointer -->
-                    <div class="absolute -top-3 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-12 border-b-red-600"></div>
+                    <div class="absolute -top-2 w-0 h-0 border-l-6 border-l-transparent border-r-6 border-r-transparent border-b-10 border-b-red-600"></div>
                 </div>
-                <h3 class="font-bold text-base text-gray-800">Spin & Win Real SuperCoins</h3>
-                <p class="text-xs text-gray-500">Tap below to spin the wheel and win instant wallet rewards!</p>
-                <button id="spin-btn" onclick="spinWheel()" class="w-full py-3 festive-gradient text-white font-bold rounded-xl text-sm shadow">Spin Now</button>
+                <button id="spin-btn" onclick="spinWheel()" class="w-full py-2.5 bg-[#fb641b] text-white font-bold rounded text-xs shadow hover:bg-orange-600">Spin the Wheel</button>
             </div>
         </div>
 
         <!-- CATEGORIES VIEW -->
-        <div id="view-categories" class="tab-view hidden p-4">
-            <h2 class="text-lg font-bold mb-4 text-gray-800">📂 Shop by Category</h2>
-            <div class="grid grid-cols-2 gap-3" id="category-product-grid">
+        <div id="view-categories" class="tab-view hidden p-3 space-y-3">
+            <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider">All Categories</h2>
+            <div class="grid grid-cols-2 gap-2" id="category-product-grid">
                 <!-- Populated via JS -->
             </div>
         </div>
 
         <!-- ACCOUNT VIEW -->
-        <div id="view-account" class="tab-view hidden p-4 space-y-4">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex items-center space-x-4">
-                <div class="w-14 h-14 festive-gradient rounded-full flex items-center justify-center text-white font-bold text-xl">NX</div>
+        <div id="view-account" class="tab-view hidden p-3 space-y-3">
+            <div class="bg-white p-4 rounded-lg shadow-sm flex items-center space-x-3">
+                <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">NX</div>
                 <div>
-                    <h3 class="font-bold text-gray-900 text-base">Nikhilfx Verified User</h3>
+                    <h3 class="font-bold text-gray-900 text-sm">Nikhilfx Verified User</h3>
                     <p class="text-xs text-gray-500" id="display-mobile">+91 --</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 divide-y divide-gray-100 text-sm">
+            <div class="bg-white rounded-lg shadow-sm divide-y divide-gray-100 text-xs font-medium text-gray-700">
                 <div class="p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50" onclick="switchTab('orders', document.getElementById('nav-account'))">
-                    <span class="font-medium text-gray-700 flex items-center">📦 My Real Orders & Tracking</span>
+                    <span>📦 My Orders & Tracking</span>
+                    <span class="text-gray-400">&gt;</span>
+                </div>
+                <div class="p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50" onclick="showHelpCenter()">
+                    <span class="text-red-600 font-bold">🛠️ Cancel / Return / Replace Help</span>
                     <span class="text-gray-400">&gt;</span>
                 </div>
                 <div class="p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50" onclick="showSupport()">
-                    <span class="font-medium text-gray-700 flex items-center">🎧 24x7 Customer Support</span>
+                    <span class="text-blue-600 font-bold">🎧 24x7 Customer Support</span>
                     <span class="text-gray-400">&gt;</span>
                 </div>
-                <div class="p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50" onclick="alert('Wallet Balance: ' + state.coins + ' SuperCoins')">
-                    <span class="font-medium text-gray-700 flex items-center">🪙 SuperCoins Wallet</span>
-                    <span class="text-gray-400 font-bold text-blue-600" id="account-coin-val">50 Coins</span>
+                <div class="p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50" onclick="alert('SuperCoins Wallet: ' + state.coins + ' Coins')">
+                    <span>🪙 SuperCoins Balance</span>
+                    <span class="text-blue-600 font-bold" id="account-coin-val">50 Coins</span>
                 </div>
-                <div class="p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50 text-red-600" onclick="logout()">
-                    <span class="font-medium flex items-center">🚪 Logout</span>
+                <div class="p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50 text-red-600 font-bold" onclick="logout()">
+                    <span>🚪 Logout</span>
                     <span>&gt;</span>
                 </div>
             </div>
         </div>
 
         <!-- ORDERS VIEW -->
-        <div id="view-orders" class="tab-view hidden p-4 space-y-4">
-            <h2 class="text-lg font-bold text-gray-800">📦 My Real Orders</h2>
-            <div id="orders-container" class="space-y-3">
+        <div id="view-orders" class="tab-view hidden p-3 space-y-3">
+            <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider">My Orders & Live Status</h2>
+            <div id="orders-container" class="space-y-2">
                 <!-- Populated via JS -->
+            </div>
+        </div>
+
+        <!-- HELP / CANCELLATION & RETURN POLICY VIEW -->
+        <div id="view-help" class="tab-view hidden p-3 space-y-3 text-xs">
+            <div class="bg-white p-4 rounded-lg shadow-sm space-y-3">
+                <h2 class="font-bold text-sm text-gray-900 border-b pb-2">Help Center: Cancellation, Return & Replacement</h2>
+                
+                <div class="space-y-1">
+                    <p class="font-bold text-blue-700">1. How to Cancel an Order?</p>
+                    <p class="text-gray-600 leading-relaxed">You can cancel your order anytime before it is shipped. Go to <b>Account > My Orders</b>, select the order, and click on the "Cancel Order" button. Instant refund will be credited to your wallet.</p>
+                </div>
+
+                <div class="space-y-1 pt-2">
+                    <p class="font-bold text-blue-700">2. Return & Replacement Policy</p>
+                    <p class="text-gray-600 leading-relaxed">We offer a <b>7-day hassle-free return and replacement policy</b> from the date of delivery. If you receive a damaged, defective, or incorrect product, go to <b>My Orders</b> and click "Return/Replace".</p>
+                </div>
+
+                <div class="space-y-1 pt-2">
+                    <p class="font-bold text-blue-700">3. Delivery Partner Details</p>
+                    <p class="text-gray-600 leading-relaxed">All deliveries are handled by Nikhilfx Express Logistics with live tracking updates and professional delivery agents.</p>
+                </div>
+                
+                <button onclick="switchTab('orders', document.getElementById('nav-account'))" class="w-full py-2 bg-blue-600 text-white font-bold rounded mt-2">Go to My Orders</button>
             </div>
         </div>
 
         <!-- CART VIEW -->
-        <div id="view-cart" class="tab-view hidden p-4 space-y-4">
-            <h2 class="text-lg font-bold text-gray-800">🛒 Shopping Cart</h2>
-            <div id="cart-items" class="space-y-3">
+        <div id="view-cart" class="tab-view hidden p-3 space-y-3">
+            <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider">My Shopping Cart</h2>
+            <div id="cart-items" class="space-y-2">
                 <!-- Populated via JS -->
             </div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 space-y-3">
-                <div class="flex justify-between text-sm">
-                    <span class="text-gray-500">Total Payable:</span>
-                    <span class="font-bold" id="cart-total">₹0</span>
+            <div class="bg-white p-3 rounded-lg shadow-sm space-y-2">
+                <div class="flex justify-between text-xs font-semibold">
+                    <span class="text-gray-500">Total Amount:</span>
+                    <span class="font-bold text-sm" id="cart-total">₹0</span>
                 </div>
-                <button onclick="checkout()" class="w-full py-2.5 festive-gradient text-white font-bold rounded-lg text-sm shadow">Place Order Securely</button>
+                <button onclick="checkout()" class="w-full py-2.5 bg-[#fb641b] text-white font-bold rounded text-xs shadow hover:bg-orange-600">Place Order</button>
             </div>
         </div>
 
-        <!-- BOTTOM NAV -->
+        <!-- BOTTOM NAVIGATION BAR -->
         <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 flex justify-around py-2 z-30 shadow-lg text-[10px] text-gray-600">
             <button onclick="switchTab('home', this)" id="nav-home" class="nav-btn flex flex-col items-center text-blue-600 font-bold">
                 <svg class="w-5 h-5 mb-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
@@ -247,7 +269,7 @@
 
     </div>
 
-    <!-- APPLICATION LOGIC -->
+    <!-- APPLICATION CODE LOGIC -->
     <script>
         const products = [
             { 
@@ -259,15 +281,14 @@
                 discount: "62% Off", 
                 rating: "4.4 ★", 
                 ratingsCount: "12,450 Ratings & 1,120 Reviews", 
-                description: "Immerse yourself in deep bass with these wireless over-ear headphones. Features 40-hour long battery backup, active comfort cushions, and fast Bluetooth connectivity.",
+                description: "Immerse yourself in deep bass with these wireless over-ear headphones. Features 40-hour long battery backup and fast pairing.",
                 images: [
                     "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80",
-                    "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=400&q=80",
-                    "https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?auto=format&fit=crop&w=400&q=80"
+                    "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=400&q=80"
                 ],
                 reviews: [
-                    { user: "Rahul Sharma", rating: "5 ★", comment: "Superb sound quality and battery life!" },
-                    { user: "Priya Reddy", rating: "4 ★", comment: "Comfortable to wear for long hours." }
+                    { user: "Rahul Sharma", rating: "5 ★", comment: "Superb sound quality!" },
+                    { user: "Priya Reddy", rating: "4 ★", comment: "Comfortable to wear." }
                 ]
             },
             { 
@@ -279,13 +300,12 @@
                 discount: "68% Off", 
                 rating: "4.2 ★", 
                 ratingsCount: "8,320 Ratings & 840 Reviews", 
-                description: "A premium smart classic watch loaded with fitness tracking, heart rate monitoring, full-touch vivid HD display, and water resistance.",
+                description: "A premium smart classic watch loaded with fitness tracking, heart rate monitoring, and HD display.",
                 images: [
-                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80",
-                    "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=400&q=80"
+                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80"
                 ],
                 reviews: [
-                    { user: "Kiran Kumar", rating: "5 ★", comment: "Looks stunning and premium on the wrist." }
+                    { user: "Kiran Kumar", rating: "5 ★", comment: "Looks stunning!" }
                 ]
             },
             { 
@@ -297,12 +317,12 @@
                 discount: "50% Off", 
                 rating: "4.1 ★", 
                 ratingsCount: "3,150 Ratings & 300 Reviews", 
-                description: "Stay warm and stylish with this ultra-soft cotton blend hoodie tailored for all-day comfort and casual wear.",
+                description: "Stay warm and stylish with this ultra-soft cotton blend hoodie tailored for all-day comfort.",
                 images: [
                     "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=400&q=80"
                 ],
                 reviews: [
-                    { user: "Nikhil V.", rating: "4 ★", comment: "Good fitting and very cozy material." }
+                    { user: "Nikhil V.", rating: "4 ★", comment: "Good fitting." }
                 ]
             },
             { 
@@ -314,12 +334,12 @@
                 discount: "31% Off", 
                 rating: "4.5 ★", 
                 ratingsCount: "25,100 Ratings & 2,890 Reviews", 
-                description: "Unleash ultimate gaming performance with a high refresh rate display, massive battery, and an advanced processor.",
+                description: "Unleash ultimate gaming performance with a high refresh rate display and massive battery.",
                 images: [
                     "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80"
                 ],
                 reviews: [
-                    { user: "Anil Kumar", rating: "5 ★", comment: "Smooth gameplay and fast charging!" }
+                    { user: "Anil Kumar", rating: "5 ★", comment: "Smooth gameplay!" }
                 ]
             }
         ];
@@ -349,10 +369,10 @@
                 document.getElementById('welcome-modal').classList.add('hidden');
                 document.getElementById('main-app').classList.remove('hidden');
                 document.getElementById('display-mobile').innerText = '+91 ' + val;
-                showToast('Login successful! Welcome to Nikhilfx.');
+                showToast('Login successful!');
                 updateUI();
             } else {
-                alert('Please enter a valid 10-digit mobile number.');
+                alert('Enter valid 10-digit mobile number.');
             }
         }
 
@@ -368,81 +388,47 @@
             setTimeout(() => t.classList.add('hidden'), 3000);
         }
 
+        function filterSearch(query) {
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
+            renderProductList(filtered, 'product-grid');
+        }
+
         function updateUI() {
             document.getElementById('coin-balance').innerText = state.coins;
             document.getElementById('account-coin-val').innerText = state.coins + ' Coins';
             document.getElementById('cart-badge').innerText = state.cart.length;
 
-            let gridHTML = '';
-            products.forEach(p => {
-                gridHTML += `
-                    <div onclick="openProduct(${p.id})" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between cursor-pointer">
+            renderProductList(products, 'product-grid');
+            renderProductList(products, 'category-product-grid');
+            renderCart();
+            renderOrders();
+        }
+
+        function renderProductList(list, elementId) {
+            let html = '';
+            list.forEach(p => {
+                html += `
+                    <div onclick="openProduct(${p.id})" class="bg-white p-2.5 rounded shadow-sm border border-gray-100 flex flex-col justify-between cursor-pointer">
                         <div>
-                            <div class="w-full h-28 bg-gray-100 rounded-lg mb-2 overflow-hidden flex items-center justify-center">
+                            <div class="w-full h-28 bg-gray-50 rounded mb-2 overflow-hidden flex items-center justify-center">
                                 <img src="${p.image}" class="w-full h-full object-cover">
                             </div>
-                            <p class="text-xs font-semibold text-gray-700 truncate">${p.name}</p>
-                            <div class="flex items-center space-x-1 mt-1">
-                                <span class="bg-green-700 text-white text-[9px] px-1.5 py-0.2 rounded font-bold">${p.rating}</span>
-                                <span class="text-[10px] text-gray-400">(${p.ratingsCount.split(' ')[0]})</span>
+                            <p class="text-xs font-semibold text-gray-800 truncate">${p.name}</p>
+                            <div class="flex items-center space-x-1 mt-0.5">
+                                <span class="bg-green-700 text-white text-[9px] px-1 rounded font-bold">${p.rating}</span>
+                                <span class="text-[9px] text-gray-400">(${p.ratingsCount.split(' ')[0]})</span>
                             </div>
-                            <div class="flex items-center space-x-2 mt-1">
-                                <span class="text-sm font-bold text-gray-900">₹${p.price}</span>
-                                <span class="text-xs text-gray-400 line-through">₹${p.mrp}</span>
-                                <span class="text-[10px] font-bold text-green-600">${p.discount}</span>
+                            <div class="flex items-center space-x-1.5 mt-1">
+                                <span class="text-xs font-bold text-gray-900">₹${p.price}</span>
+                                <span class="text-[10px] text-gray-400 line-through">₹${p.mrp}</span>
+                                <span class="text-[9px] font-bold text-green-600">${p.discount}</span>
                             </div>
                         </div>
                     </div>
                 `;
             });
-            document.getElementById('product-grid').innerHTML = gridHTML;
-            document.getElementById('category-product-grid').innerHTML = gridHTML;
-
-            let cartHTML = '';
-            let total = 0;
-            if (state.cart.length === 0) {
-                cartHTML = '<p class="text-xs text-gray-500 bg-white p-4 rounded-xl">Your cart is empty.</p>';
-            } else {
-                state.cart.forEach((item, index) => {
-                    total += item.price;
-                    cartHTML += `
-                        <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <img src="${item.image}" class="w-12 h-12 object-cover rounded">
-                                <div>
-                                    <h4 class="text-xs font-semibold text-gray-800">${item.name}</h4>
-                                    <p class="text-xs font-bold text-green-600">₹${item.price}</p>
-                                </div>
-                            </div>
-                            <button onclick="removeFromCart(${index})" class="text-red-500 text-xs font-bold">Remove</button>
-                        </div>
-                    `;
-                });
-            }
-            document.getElementById('cart-items').innerHTML = cartHTML;
-            document.getElementById('cart-total').innerText = '₹' + total;
-
-            let orderHTML = '';
-            if (state.orders.length === 0) {
-                orderHTML = '<p class="text-xs text-gray-500 bg-white p-4 rounded-xl">No active orders placed yet.</p>';
-            } else {
-                state.orders.forEach(o => {
-                    orderHTML += `
-                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 space-y-2">
-                            <div class="flex justify-between text-xs font-bold text-gray-700">
-                                <span>Order ID: #${o.id}</span>
-                                <span class="text-green-600">${o.status}</span>
-                            </div>
-                            <p class="text-xs text-gray-600">${o.item} - ₹${o.price}</p>
-                            <div class="text-[11px] bg-gray-50 p-2 rounded border border-gray-100">
-                                <p class="font-semibold text-blue-700">Delivery Agent: Ramesh Kumar (9876543210)</p>
-                                <p class="text-gray-500">Estimated Delivery: Tomorrow, 4:00 PM</p>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-            document.getElementById('orders-container').innerHTML = orderHTML;
+            const el = document.getElementById(elementId);
+            if(el) el.innerHTML = html;
         }
 
         let currentRotation = 0;
@@ -450,8 +436,6 @@
             const wheel = document.getElementById('wheel');
             const btn = document.getElementById('spin-btn');
             btn.disabled = true;
-            
-            // Random degrees for smooth rotation effect
             currentRotation += 1440 + Math.floor(Math.random() * 360);
             wheel.style.transform = `rotate(${currentRotation}deg)`;
 
@@ -459,7 +443,7 @@
                 state.coins += 20;
                 localStorage.setItem('nikhilfx_coins', state.coins);
                 updateUI();
-                showToast('🎉 Congratulations! You won 20 SuperCoins!');
+                showToast('🎉 Won 20 SuperCoins!');
                 btn.disabled = false;
             }, 3000);
         }
@@ -468,64 +452,37 @@
             const p = products.find(prod => prod.id === id);
             if (!p) return;
 
-            let imagesHTML = '';
+            let imgs = '';
             p.images.forEach(img => {
-                imagesHTML += `<div class="w-64 h-64 shrink-0 bg-gray-100 rounded-lg overflow-hidden border border-gray-200"><img src="${img}" class="w-full h-full object-cover"></div>`;
+                imgs += `<div class="w-56 h-56 shrink-0 bg-gray-50 rounded overflow-hidden border"><img src="${img}" class="w-full h-full object-cover"></div>`;
             });
 
-            let reviewsHTML = '';
+            let revs = '';
             p.reviews.forEach(r => {
-                reviewsHTML += `
-                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 space-y-1 text-xs">
-                        <div class="flex items-center justify-between">
-                            <span class="font-bold text-gray-800">${r.user}</span>
-                            <span class="bg-green-700 text-white px-1.5 py-0.5 rounded text-[10px] font-bold">${r.rating}</span>
-                        </div>
-                        <p class="text-gray-600">${r.comment}</p>
-                    </div>
-                `;
+                revs += `<div class="bg-gray-50 p-2.5 rounded border text-xs space-y-1"><div class="flex justify-between font-bold"><span>${r.user}</span><span class="bg-green-700 text-white px-1 rounded text-[9px]">${r.rating}</span></div><p class="text-gray-600">${r.comment}</p></div>`;
             });
 
-            const detailHTML = `
-                <div class="flex space-x-3 overflow-x-auto pb-2 scrollbar-none">
-                    ${imagesHTML}
+            document.getElementById('product-detail-content').innerHTML = `
+                <div class="flex space-x-2 overflow-x-auto pb-2 scrollbar-none">${imgs}</div>
+                <div class="bg-white p-3 rounded shadow-sm border space-y-1.5">
+                    <h2 class="text-xs font-bold text-gray-900">${p.name}</h2>
+                    <div class="flex items-center space-x-1"><span class="bg-green-700 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">${p.rating}</span><span class="text-[10px] text-gray-500">${p.ratingsCount}</span></div>
+                    <div class="flex items-baseline space-x-2"><span class="text-base font-black text-gray-900">₹${p.price}</span><span class="text-xs text-gray-400 line-through">₹${p.mrp}</span><span class="text-xs font-bold text-green-600">${p.discount}</span></div>
+                    <p class="text-[11px] text-green-700 font-semibold">Free Delivery &amp; 7 Days Replacement Policy</p>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 space-y-2">
-                    <h2 class="text-sm font-bold text-gray-900">${p.name}</h2>
-                    <div class="flex items-center space-x-2">
-                        <span class="bg-green-700 text-white text-xs px-2 py-0.5 rounded font-bold">${p.rating}</span>
-                        <span class="text-xs text-gray-500 font-medium">${p.ratingsCount}</span>
-                    </div>
-                    <div class="flex items-baseline space-x-2 pt-1">
-                        <span class="text-xl font-black text-gray-900">₹${p.price}</span>
-                        <span class="text-sm text-gray-400 line-through">₹${p.mrp}</span>
-                        <span class="text-sm font-bold text-green-600">${p.discount}</span>
-                    </div>
-                    <p class="text-xs text-green-700 font-semibold">Free Delivery &amp; 7 Days Replacement Policy</p>
+                <div class="bg-white p-3 rounded shadow-sm border space-y-1">
+                    <h3 class="text-[11px] font-bold text-gray-800 uppercase">Product Description</h3>
+                    <p class="text-[11px] text-gray-600 leading-relaxed">${p.description}</p>
                 </div>
-
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 space-y-1">
-                    <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wide">Product Description</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed">${p.description}</p>
+                <div class="bg-white p-3 rounded shadow-sm border space-y-2">
+                    <h3 class="text-[11px] font-bold text-gray-800 uppercase">Ratings &amp; Reviews</h3>
+                    <div class="space-y-1.5">${revs}</div>
                 </div>
-
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 space-y-3">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wide">Ratings &amp; Reviews</h3>
-                        <span class="text-blue-600 text-xs font-bold cursor-pointer">Rate Product</span>
-                    </div>
-                    <div class="space-y-2">
-                        ${reviewsHTML}
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2 pt-4">
-                    <button onclick="addToCartAndGo(${p.id})" class="py-3 bg-yellow-400 text-blue-900 font-bold rounded-lg text-xs shadow hover:bg-yellow-500">Add to Cart</button>
-                    <button onclick="buyNow(${p.id})" class="py-3 bg-orange-500 text-white font-bold rounded-lg text-xs shadow hover:bg-orange-600">Buy Now</button>
+                <div class="grid grid-cols-2 gap-2 pt-2">
+                    <button onclick="addToCartAndGo(${p.id})" class="py-2.5 bg-yellow-400 text-blue-900 font-bold rounded text-xs shadow">Add to Cart</button>
+                    <button onclick="buyNow(${p.id})" class="py-2.5 bg-[#fb641b] text-white font-bold rounded text-xs shadow">Buy Now</button>
                 </div>
             `;
-
-            document.getElementById('product-detail-content').innerHTML = detailHTML;
             switchTab('product-detail', null);
         }
 
@@ -544,13 +501,36 @@
             state.cart.push(prod);
             localStorage.setItem('nikhilfx_cart', JSON.stringify(state.cart));
             updateUI();
-            showToast('Item added to cart!');
+            showToast('Added to Cart!');
         }
 
         function removeFromCart(index) {
             state.cart.splice(index, 1);
             localStorage.setItem('nikhilfx_cart', JSON.stringify(state.cart));
             updateUI();
+        }
+
+        function renderCart() {
+            let html = '';
+            let total = 0;
+            if (state.cart.length === 0) {
+                html = '<p class="text-xs text-gray-500 bg-white p-4 rounded shadow-sm">Your cart is empty.</p>';
+            } else {
+                state.cart.forEach((item, index) => {
+                    total += item.price;
+                    html += `
+                        <div class="bg-white p-2.5 rounded shadow-sm border flex items-center justify-between text-xs">
+                            <div class="flex items-center space-x-2">
+                                <img src="${item.image}" class="w-10 h-10 object-cover rounded">
+                                <div><h4 class="font-semibold text-gray-800">${item.name}</h4><p class="font-bold text-green-600">₹${item.price}</p></div>
+                            </div>
+                            <button onclick="removeFromCart(${index})" class="text-red-500 font-bold text-[11px]">Remove</button>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('cart-items').innerHTML = html;
+            document.getElementById('cart-total').innerText = '₹' + total;
         }
 
         function checkout() {
@@ -570,11 +550,52 @@
             localStorage.setItem('nikhilfx_coins', state.coins);
             updateUI();
             switchTab('orders', document.getElementById('nav-account'));
-            showToast('Order placed successfully! Earned 10 SuperCoins.');
+            showToast('Order placed successfully! Earned 10 Coins.');
+        }
+
+        function renderOrders() {
+            let html = '';
+            if (state.orders.length === 0) {
+                html = '<p class="text-xs text-gray-500 bg-white p-4 rounded shadow-sm">No orders placed yet.</p>';
+            } else {
+                state.orders.forEach((o, idx) => {
+                    html += `
+                        <div class="bg-white p-3 rounded shadow-sm border space-y-2 text-xs">
+                            <div class="flex justify-between font-bold text-gray-700">
+                                <span>Order ID: #${o.id}</span>
+                                <span class="text-green-600">${o.status}</span>
+                            </div>
+                            <p class="text-gray-600">${o.item} - ₹${o.price}</p>
+                            <div class="bg-gray-50 p-2 rounded border text-[10px] space-y-0.5">
+                                <p class="font-semibold text-blue-700">Delivery Agent: Ramesh Kumar (9876543210)</p>
+                                <p class="text-gray-500">Delivery expected by Tomorrow, 4:00 PM</p>
+                            </div>
+                            <div class="flex space-x-2 pt-1">
+                                <button onclick="cancelOrder(${idx})" class="w-1/2 py-1.5 bg-red-50 text-red-600 font-bold rounded border border-red-200">Cancel Order</button>
+                                <button onclick="showHelpCenter()" class="w-1/2 py-1.5 bg-blue-50 text-blue-600 font-bold rounded border border-blue-200">Return / Replace</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('orders-container').innerHTML = html;
+        }
+
+        function cancelOrder(idx) {
+            if(confirm('Are you sure you want to cancel this order?')) {
+                state.orders.splice(idx, 1);
+                localStorage.setItem('nikhilfx_orders', JSON.stringify(state.orders));
+                renderOrders();
+                showToast('Order cancelled successfully. Refund initiated.');
+            }
+        }
+
+        function showHelpCenter() {
+            switchTab('help', null);
         }
 
         function showSupport() {
-            alert('Nikhilfx 24x7 Support: Ticket #NX8892 created. Our agent will call you on +91 ' + state.mobile + ' shortly.');
+            alert('Nikhilfx 24x7 Helpdesk: Ticket created. Our support executive will call you on +91 ' + state.mobile);
         }
 
         function switchTab(tabName, btnElement) {
