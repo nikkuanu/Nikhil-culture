@@ -1,1 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikhilfx | Exclusive Fashion & Store</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .festive-gradient {
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #4f46e5 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans antialiased">
+
+    <!-- SIGNUP / WELCOME MODAL OVERLAY -->
+    <div id="welcome-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 text-center transform transition-all">
+            <div class="w-16 h-16 festive-gradient rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <span class="text-white text-2xl font-bold">NX</span>
+            </div>
+            <h2 class="text-2xl font-extrabold text-gray-900 mb-2">Welcome to "Nikhilfx"</h2>
+            <p class="text-sm text-gray-600 mb-6">India's Brand New Exclusive Store! Enter your mobile number to get started and unlock special offers.</p>
+            
+            <form id="signup-form" onsubmit="handleSignup(event)" class="space-y-4">
+                <div class="flex rounded-lg border border-gray-300 overflow-hidden focus-within:ring-2 focus-within:ring-pink-500">
+                    <span class="bg-gray-100 px-3 py-3 text-gray-500 font-medium text-sm flex items-center">+91</span>
+                    <input type="tel" id="mobile-input" required pattern="[0-9]{10}" placeholder="Enter 10-digit mobile no." 
+                        class="w-full px-4 py-3 outline-none text-sm">
+                </div>
+                <button type="submit" class="w-full py-3 festive-gradient text-white font-bold rounded-lg shadow-md hover:opacity-95 transition">
+                    Continue & Join
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SUCCESS TOAST NOTIFICATION -->
+    <div id="success-toast" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 hidden bg-green-600 text-white px-6 py-3 rounded-full shadow-2xl font-medium text-sm flex items-center space-x-2">
+        <span>🎉 Congrats! You joined successfully in Nikhilfx!</span>
+    </div>
+
+    <!-- MAIN APP INTERFACE (FLIPKART STYLE) -->
+    <div id="main-app" class="pb-20 max-w-md mx-auto bg-gray-50 min-h-screen relative shadow-xl">
+        
+        <!-- Top Header Bar -->
+        <header class="festive-gradient text-white p-3 sticky top-0 z-30 shadow-md">
+            <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                    <span class="bg-yellow-400 text-blue-900 font-black px-2 py-0.5 rounded text-sm italic shadow">Nikhilfx</span>
+                </div>
+                <div class="flex items-center space-x-3 text-xs">
+                    <span class="bg-white/20 px-2 py-1 rounded-full font-semibold">⚡ Value 365</span>
+                    <span class="bg-white/20 px-2 py-1 rounded-full font-semibold">✈️ Travel</span>
+                </div>
+            </div>
+
+            <!-- Location Row -->
+            <div class="text-xs text-white/90 flex items-center justify-between mb-2">
+                <div class="flex items-center truncate">
+                    <svg class="w-3.5 h-3.5 mr-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <span class="truncate">HOME • Veligallu, Andhra Pradesh</span>
+                </div>
+                <div class="bg-yellow-400 text-yellow-900 font-bold px-2 py-0.5 rounded-full text-[10px] shrink-0">
+                    🪙 26 Coins
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="relative">
+                <input type="text" placeholder="Search for Mobiles, Fashion, Electronics..." class="w-full py-2 pl-9 pr-4 rounded-lg text-gray-800 text-sm bg-white shadow-inner outline-none">
+                <svg class="w-4 h-4 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+        </header>
+
+        <!-- Category Icons Scroll -->
+        <div class="bg-white py-3 px-2 flex space-x-4 overflow-x-auto scrollbar-none shadow-sm text-center">
+            <div class="shrink-0 cursor-pointer">
+                <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-1 text-pink-600 font-bold">🔥</div>
+                <span class="text-[11px] font-medium text-gray-700">For You</span>
+            </div>
+            <div class="shrink-0 cursor-pointer">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold">👕</div>
+                <span class="text-[11px] font-medium text-gray-700">Fashion</span>
+            </div>
+            <div class="shrink-0 cursor-pointer">
+                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-1 text-purple-600 font-bold">📱</div>
+                <span class="text-[11px] font-medium text-gray-700">Mobiles</span>
+            </div>
+            <div class="shrink-0 cursor-pointer">
+                <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-1 text-yellow-600 font-bold">💻</div>
+                <span class="text-[11px] font-medium text-gray-700">Electronics</span>
+            </div>
+            <div class="shrink-0 cursor-pointer">
+                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-1 text-red-600 font-bold">💄</div>
+                <span class="text-[11px] font-medium text-gray-700">Beauty</span>
+            </div>
+            <div class="shrink-0 cursor-pointer">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-1 text-green-600 font-bold">🏡</div>
+                <span class="text-[11px] font-medium text-gray-700">Home</span>
+            </div>
+        </div>
+
+        <!-- Festive Sale Countdown Banner with Nikhil's Photo -->
+        <div class="m-3 festive-gradient rounded-xl p-4 text-white shadow-lg relative overflow-hidden flex items-center justify-between">
+            <div class="max-w-[55%] z-10">
+                <div class="inline-block bg-yellow-400 text-blue-900 font-extrabold text-xs px-2 py-0.5 rounded italic mb-1">NIKHILFX SPECIAL</div>
+                <h3 class="text-xs font-bold opacity-95 mb-2">Mega Sale ends in</h3>
+                <!-- Timer Boxes -->
+                <div class="grid grid-cols-4 gap-1 text-center">
+                    <div class="bg-blue-900/60 backdrop-blur rounded p-1 border border-white/20">
+                        <span class="block text-sm font-black text-yellow-300">02</span>
+                        <span class="text-[8px] uppercase text-white/80">Days</span>
+                    </div>
+                    <div class="bg-blue-900/60 backdrop-blur rounded p-1 border border-white/20">
+                        <span class="block text-sm font-black text-yellow-300">14</span>
+                        <span class="text-[8px] uppercase text-white/80">Hrs</span>
+                    </div>
+                    <div class="bg-blue-900/60 backdrop-blur rounded p-1 border border-white/20">
+                        <span class="block text-sm font-black text-yellow-300">39</span>
+                        <span class="text-[8px] uppercase text-white/80">Min</span>
+                    </div>
+                    <div class="bg-blue-900/60 backdrop-blur rounded p-1 border border-white/20">
+                        <span class="block text-sm font-black text-yellow-300">13</span>
+                        <span class="text-[8px] uppercase text-white/80">Sec</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Nikhil's Photo Container -->
+            <div class="w-28 h-28 rounded-full border-2 border-yellow-400 overflow-hidden shadow-xl shrink-0 z-10 bg-white">
+                <img src="nikhil.jpg" alt="Nikhil" class="w-full h-full object-cover">
+            </div>
+        </div>
+
+        <!-- Featured Banner Card -->
+        <div class="mx-3 mb-4 bg-gradient-to-r from-purple-900 to-indigo-900 rounded-xl overflow-hidden shadow-md text-white p-4 relative">
+            <div class="max-w-[60%]">
+                <span class="bg-yellow-400 text-purple-900 text-[10px] font-bold px-2 py-0.5 rounded">LIMITED OFFER</span>
+                <h4 class="text-lg font-extrabold mt-2 leading-tight">Men's Premium Styles...</h4>
+                <p class="text-yellow-300 font-bold text-sm mt-1">Min. 75% Off</p>
+                <p class="text-[10px] text-gray-300 mt-1">Exclusive Nikhilfx Brand Launch</p>
+            </div>
+            <div class="absolute right-2 bottom-0 w-3
 
