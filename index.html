@@ -231,6 +231,66 @@
                 <button onclick="checkout()" class="w-full py-2.5 bg-[#fb641b] text-white font-bold rounded text-xs shadow hover:bg-orange-600">Place Order</button>
             </div>
         </div>
+<script>
+  // Product dataset with prices updated to the ₹1000 - ₹1200 range
+  const products = [
+    { id: 1, name: "Classic Leather Backpack", category: "fashion", price: 1199, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62" },
+    { id: 2, name: "Waterproof Travel Laptop Bag", category: "fashion", price: 1149, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3" },
+    { id: 3, name: "Men's Casual Cotton Shirt", category: "fashion", price: 1049, image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf" },
+    { id: 4, name: "Women's Floral Summer Dress", category: "fashion", price: 1199, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1" },
+    { id: 5, name: "Slim Fit Denim Jeans", category: "fashion", price: 1099, image: "https://images.unsplash.com/photo-1542272604-787c3835535d" },
+    { id: 6, name: "Unisex Oversized Hoodie", category: "fashion", price: 1150, image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2" },
+    { id: 7, name: "Wireless Bluetooth Earbuds", category: "electronics", price: 1099, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e" },
+    { id: 8, name: "Smartwatch Fitness Tracker", category: "electronics", price: 1199, image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30" }
+  ];
+
+  // Render products to grid
+  function renderProducts(items) {
+    const container = document.getElementById("product-grid");
+    if (!container) return;
+
+    if (items.length === 0) {
+      container.innerHTML = `<div class="col-span-full py-12 text-center text-gray-500 font-medium">No results found</div>`;
+      return;
+    }
+
+    container.innerHTML = items.map(p => `
+      <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex flex-col justify-between">
+        <img src="${p.image}" class="h-40 w-full object-cover rounded-md mb-2">
+        <h3 class="text-sm font-semibold text-gray-800 line-clamp-1">${p.name}</h3>
+        <p class="text-green-600 font-bold mt-1">₹${p.price}</p>
+      </div>
+    `).join('');
+  }
+
+  // Search input handler with exact match / no results validation
+  function setupSearch() {
+    const searchInput = document.querySelector("input[type='text']");
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        const results = products.filter(p => p.name.toLowerCase().includes(query));
+        renderProducts(results);
+      });
+    }
+  }
+
+  // Category selection handler
+  function filterCategory(cat) {
+    if (cat === 'all') {
+      renderProducts(products);
+      return;
+    }
+    const filtered = products.filter(p => p.category === cat);
+    renderProducts(filtered);
+  }
+
+  // Initial load
+  document.addEventListener("DOMContentLoaded", () => {
+    renderProducts(products);
+    setupSearch();
+  });
+</script>
 
         <!-- BOTTOM NAVIGATION BAR -->
         <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 flex justify-around py-2 z-30 shadow-lg text-[10px] text-gray-600">
