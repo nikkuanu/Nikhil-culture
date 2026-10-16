@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikhilfx | India's Mega Online Shopping Hub</title>
+    <title>Nikhilfx | Official E-Commerce Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .festive-gradient {
             background: linear-gradient(135deg, #2874f0 0%, #1e40af 100%);
         }
-        @keyframes wheelSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(1440deg); }
-        }
         .spinning-wheel {
-            transition: transform 3s cubic-bezier(0.15, 0.95, 0.15, 1);
+            transition: transform 4s cubic-bezier(0.15, 0.95, 0.15, 1);
         }
     </style>
 </head>
@@ -64,7 +60,7 @@
 
             <!-- SEARCH BAR -->
             <div class="relative">
-                <input type="text" id="search-box" oninput="filterSearch(this.value)" placeholder="Search for Products, Brands and More" class="w-full py-2 pl-9 pr-4 rounded text-gray-800 text-sm bg-white shadow-inner outline-none">
+                <input type="text" id="search-box" oninput="filterSearch(this.value)" placeholder="Search 1000+ products (500 - 1000 ₹)" class="w-full py-2 pl-9 pr-4 rounded text-gray-800 text-sm bg-white shadow-inner outline-none">
                 <svg class="w-4 h-4 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
         </header>
@@ -85,7 +81,7 @@
                 </div>
                 <div onclick="switchTab('categories', document.getElementById('nav-categories'))" class="shrink-0 cursor-pointer">
                     <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold text-lg">📱</div>
-                    <span class="text-[11px] font-medium text-gray-700">Mobiles</span>
+                    <span class="text-[11px] font-medium text-gray-700">Gadgets</span>
                 </div>
                 <div onclick="switchTab('categories', document.getElementById('nav-categories'))" class="shrink-0 cursor-pointer">
                     <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold text-lg">💻</div>
@@ -101,8 +97,8 @@
             <div class="mx-2 bg-gradient-to-r from-blue-700 to-indigo-800 rounded-lg p-4 text-white shadow relative overflow-hidden flex items-center justify-between">
                 <div class="max-w-[60%] z-10">
                     <span class="bg-yellow-400 text-blue-900 font-black text-[10px] px-2 py-0.5 rounded uppercase">Nikhilfx Exclusive</span>
-                    <h3 class="text-sm font-bold mt-1">Big Billion Dhamaka</h3>
-                    <p class="text-xs text-yellow-300 font-semibold mt-0.5">Extra 10% Off + SuperCoins</p>
+                    <h3 class="text-sm font-bold mt-1">1000+ Products Store</h3>
+                    <p class="text-xs text-yellow-300 font-semibold mt-0.5">Priced between ₹500 - ₹1000</p>
                 </div>
                 <div class="relative shrink-0">
                     <div class="w-24 h-24 rounded-full border-2 border-yellow-400 overflow-hidden shadow-md bg-white">
@@ -114,7 +110,7 @@
 
             <!-- PRODUCTS GRID -->
             <div class="mx-2 bg-white rounded-lg p-3 shadow-sm">
-                <h3 class="font-bold text-gray-800 text-xs mb-3 uppercase tracking-wider text-gray-500">Suggested for You</h3>
+                <h3 class="font-bold text-gray-800 text-xs mb-3 uppercase tracking-wider text-gray-500">All Products (₹500 - ₹1000)</h3>
                 <div class="grid grid-cols-2 gap-2" id="product-grid">
                     <!-- Populated via JS -->
                 </div>
@@ -136,7 +132,7 @@
         <div id="view-play" class="tab-view hidden p-3 space-y-3">
             <div class="bg-[#2874f0] text-white p-4 rounded-lg shadow text-center space-y-1">
                 <h2 class="text-base font-bold">Nikhilfx Game Zone</h2>
-                <p class="text-xs text-blue-100">Play games & win real SuperCoins instantly</p>
+                <p class="text-xs text-blue-100">Spin the wheel & win exact coins (Max 2 attempts daily)</p>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-sm text-center space-y-4">
                 <div class="relative w-40 h-40 mx-auto flex items-center justify-center">
@@ -149,6 +145,7 @@
                     </div>
                     <div class="absolute -top-2 w-0 h-0 border-l-6 border-l-transparent border-r-6 border-r-transparent border-b-10 border-b-red-600"></div>
                 </div>
+                <p class="text-xs font-bold text-gray-700">Attempts Left Today: <span id="attempts-left" class="text-blue-600 font-extrabold">2</span></p>
                 <button id="spin-btn" onclick="spinWheel()" class="w-full py-2.5 bg-[#fb641b] text-white font-bold rounded text-xs shadow hover:bg-orange-600">Spin the Wheel</button>
             </div>
         </div>
@@ -203,26 +200,18 @@
             </div>
         </div>
 
-        <!-- HELP / CANCELLATION & RETURN POLICY VIEW -->
+        <!-- HELP VIEW -->
         <div id="view-help" class="tab-view hidden p-3 space-y-3 text-xs">
             <div class="bg-white p-4 rounded-lg shadow-sm space-y-3">
                 <h2 class="font-bold text-sm text-gray-900 border-b pb-2">Help Center: Cancellation, Return & Replacement</h2>
-                
                 <div class="space-y-1">
                     <p class="font-bold text-blue-700">1. How to Cancel an Order?</p>
-                    <p class="text-gray-600 leading-relaxed">You can cancel your order anytime before it is shipped. Go to <b>Account > My Orders</b>, select the order, and click on the "Cancel Order" button. Instant refund will be credited to your wallet.</p>
+                    <p class="text-gray-600 leading-relaxed">Go to <b>Account > My Orders</b> and click on "Cancel Order". Refund will be instant.</p>
                 </div>
-
                 <div class="space-y-1 pt-2">
                     <p class="font-bold text-blue-700">2. Return & Replacement Policy</p>
-                    <p class="text-gray-600 leading-relaxed">We offer a <b>7-day hassle-free return and replacement policy</b> from the date of delivery. If you receive a damaged, defective, or incorrect product, go to <b>My Orders</b> and click "Return/Replace".</p>
+                    <p class="text-gray-600 leading-relaxed">7-day hassle-free return and replacement available for all products.</p>
                 </div>
-
-                <div class="space-y-1 pt-2">
-                    <p class="font-bold text-blue-700">3. Delivery Partner Details</p>
-                    <p class="text-gray-600 leading-relaxed">All deliveries are handled by Nikhilfx Express Logistics with live tracking updates and professional delivery agents.</p>
-                </div>
-                
                 <button onclick="switchTab('orders', document.getElementById('nav-account'))" class="w-full py-2 bg-blue-600 text-white font-bold rounded mt-2">Go to My Orders</button>
             </div>
         </div>
@@ -271,87 +260,50 @@
 
     <!-- APPLICATION CODE LOGIC -->
     <script>
-        const products = [
-            { 
-                id: 1, 
-                name: "Wireless Bass Headphones", 
-                price: 1499, 
-                mrp: 3999, 
-                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80", 
-                discount: "62% Off", 
-                rating: "4.4 ★", 
-                ratingsCount: "12,450 Ratings & 1,120 Reviews", 
-                description: "Immerse yourself in deep bass with these wireless over-ear headphones. Features 40-hour long battery backup and fast pairing.",
-                images: [
-                    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80",
-                    "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=400&q=80"
-                ],
-                reviews: [
-                    { user: "Rahul Sharma", rating: "5 ★", comment: "Superb sound quality!" },
-                    { user: "Priya Reddy", rating: "4 ★", comment: "Comfortable to wear." }
-                ]
-            },
-            { 
-                id: 2, 
-                name: "Smart Classic Watch", 
-                price: 2499, 
-                mrp: 7999, 
-                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80", 
-                discount: "68% Off", 
-                rating: "4.2 ★", 
-                ratingsCount: "8,320 Ratings & 840 Reviews", 
-                description: "A premium smart classic watch loaded with fitness tracking, heart rate monitoring, and HD display.",
-                images: [
-                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80"
-                ],
-                reviews: [
-                    { user: "Kiran Kumar", rating: "5 ★", comment: "Looks stunning!" }
-                ]
-            },
-            { 
-                id: 3, 
-                name: "Men's Premium Hoodie", 
-                price: 999, 
-                mrp: 1999, 
-                image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=400&q=80", 
-                discount: "50% Off", 
-                rating: "4.1 ★", 
-                ratingsCount: "3,150 Ratings & 300 Reviews", 
-                description: "Stay warm and stylish with this ultra-soft cotton blend hoodie tailored for all-day comfort.",
-                images: [
-                    "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=400&q=80"
-                ],
-                reviews: [
-                    { user: "Nikhil V.", rating: "4 ★", comment: "Good fitting." }
-                ]
-            },
-            { 
-                id: 4, 
-                name: "Pro Gaming Smartphone", 
-                price: 14999, 
-                mrp: 21999, 
-                image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80", 
-                discount: "31% Off", 
-                rating: "4.5 ★", 
-                ratingsCount: "25,100 Ratings & 2,890 Reviews", 
-                description: "Unleash ultimate gaming performance with a high refresh rate display and massive battery.",
-                images: [
-                    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80"
-                ],
-                reviews: [
-                    { user: "Anil Kumar", rating: "5 ★", comment: "Smooth gameplay!" }
-                ]
-            }
+        // Generating 1000+ realistic products dynamically between ₹500 and ₹1000
+        const categories = ["Fashion", "Gadgets", "Electronics", "Home Decor", "Footwear", "Fitness"];
+        const imagePool = [
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80",
+            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80",
+            "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=400&q=80",
+            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80",
+            "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=400&q=80",
+            "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=400&q=80"
         ];
+
+        const products = [];
+        for (let i = 1; i <= 1050; i++) {
+            const cat = categories[i % categories.length];
+            const price = 500 + (i * 37) % 501; // Generates values between 500 and 1000
+            const mrp = price + 500;
+            products.push({
+                id: i,
+                name: `Nikhilfx ${cat} Item #${i}`,
+                price: price,
+                mrp: mrp,
+                image: imagePool[i % imagePool.length],
+                discount: `${Math.floor(((mrp - price)/mrp)*100)}% Off`,
+                rating: "4.3 ★",
+                ratingsCount: `${120 + i} Ratings & ${15 + i} Reviews`,
+                description: `High quality ${cat.toLowerCase()} item brought to you exclusively on Nikhilfx. Fully tested, certified, and backed by a 7-day replacement warranty.`,
+                images: [imagePool[i % imagePool.length], imagePool[(i+1) % imagePool.length]],
+                reviews: [
+                    { user: "Ramesh V.", rating: "5 ★", comment: "Awesome quality for this price!" },
+                    { user: "Pooja S.", rating: "4 ★", comment: "Fast delivery by Nikhilfx." }
+                ]
+            });
+        }
 
         let state = {
             mobile: localStorage.getItem('nikhilfx_mobile') || '',
             coins: parseInt(localStorage.getItem('nikhilfx_coins')) || 50,
             cart: JSON.parse(localStorage.getItem('nikhilfx_cart')) || [],
-            orders: JSON.parse(localStorage.getItem('nikhilfx_orders')) || []
+            orders: JSON.parse(localStorage.getItem('nikhilfx_orders')) || [],
+            spinData: JSON.parse(localStorage.getItem('nikhilfx_spin')) || { date: '', count: 0 }
         };
 
         window.onload = function() {
+            checkDailyReset();
             if (state.mobile) {
                 document.getElementById('welcome-modal').classList.add('hidden');
                 document.getElementById('main-app').classList.remove('hidden');
@@ -359,6 +311,14 @@
                 updateUI();
             }
         };
+
+        function checkDailyReset() {
+            const today = new Date().toDateString();
+            if (state.spinData.date !== today) {
+                state.spinData = { date: today, count: 0 };
+                localStorage.setItem('nikhilfx_spin', JSON.stringify(state.spinData));
+            }
+        }
 
         function handleSignup(event) {
             event.preventDefault();
@@ -397,8 +357,11 @@
             document.getElementById('coin-balance').innerText = state.coins;
             document.getElementById('account-coin-val').innerText = state.coins + ' Coins';
             document.getElementById('cart-badge').innerText = state.cart.length;
+            
+            const attemptsLeft = 2 - state.spinData.count;
+            document.getElementById('attempts-left').innerText = attemptsLeft >= 0 ? attemptsLeft : 0;
 
-            renderProductList(products, 'product-grid');
+            renderProductList(products.slice(0, 50), 'product-grid'); // Displaying first 50 items on home for fast loading
             renderProductList(products, 'category-product-grid');
             renderCart();
             renderOrders();
@@ -433,19 +396,39 @@
 
         let currentRotation = 0;
         function spinWheel() {
+            checkDailyReset();
+            if (state.spinData.count >= 2) {
+                alert('You have exhausted your 2 daily attempts for spinning the wheel. Come back tomorrow!');
+                return;
+            }
+
             const wheel = document.getElementById('wheel');
             const btn = document.getElementById('spin-btn');
             btn.disabled = true;
-            currentRotation += 1440 + Math.floor(Math.random() * 360);
+
+            // Define possible stop angles corresponding to specific coin rewards: 5, 10, 20, 50 coins
+            const possibleRewards = [5, 10, 20, 50];
+            const reward = possibleRewards[Math.floor(Math.random() * possibleRewards.length)];
+            
+            // Calculate target rotation angle based on reward to make it land precisely
+            let targetDegree = 0;
+            if (reward === 5) targetDegree = 270;
+            else if (reward === 10) targetDegree = 180;
+            else if (reward === 20) targetDegree = 0;
+            else if (reward === 50) targetDegree = 90;
+
+            currentRotation += 1440 + targetDegree; // 4 full rotations + target stop offset
             wheel.style.transform = `rotate(${currentRotation}deg)`;
 
             setTimeout(() => {
-                state.coins += 20;
+                state.coins += reward;
+                state.spinData.count += 1;
                 localStorage.setItem('nikhilfx_coins', state.coins);
+                localStorage.setItem('nikhilfx_spin', JSON.stringify(state.spinData));
                 updateUI();
-                showToast('🎉 Won 20 SuperCoins!');
+                showToast(`🎉 Congratulations! You won exactly ${reward} SuperCoins!`);
                 btn.disabled = false;
-            }, 3000);
+            }, 4000);
         }
 
         function openProduct(id) {
@@ -614,3 +597,4 @@
     </script>
 </body>
 </html>
+
