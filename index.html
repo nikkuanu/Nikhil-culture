@@ -257,7 +257,20 @@
         }
       }
       return results;
+    }    function handlePhoneAuth() {
+      const phoneInput = document.getElementById("auth-phone-input").value.trim();
+      if(phoneInput.length !== 10 || isNaN(phoneInput)) {
+        alert("Please enter a valid 10-digit mobile number.");
+        return;
+      }
+      currentUserPhone = "+91 " + phoneInput;
+      document.getElementById("account-phone").innerText = currentUserPhone;
+      document.getElementById("auth-btn-header").innerText = "CR7 Verified";
+      document.getElementById("auth-modal").classList.add("hidden");
+      
+      alert("You joined successfully!");
     }
+
 
     let currentCategory = 'all';
     let orders = [
