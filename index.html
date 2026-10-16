@@ -1,661 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikhilfx | Official E-Commerce Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .festive-gradient {
-            background: linear-gradient(135deg, #2874f0 0%, #1e40af 100%);
-        }
-        .spinning-wheel {
-            transition: transform 4s cubic-bezier(0.15, 0.95, 0.15, 1);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nikhilfx - Flipkart Clone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans antialiased">
+<body class="bg-gray-100 min-h-screen pb-20">
 
-    <!-- SIGNUP / WELCOME MODAL -->
-    <div id="welcome-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 text-center">
-            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <span class="text-white text-2xl font-bold">NX</span>
-            </div>
-            <h2 class="text-2xl font-extrabold text-gray-900 mb-1">Nikhilfx</h2>
-            <p class="text-xs text-blue-600 font-bold mb-4">India ka Apni Dukaan</p>
-            <p class="text-sm text-gray-600 mb-6">Enter your 10-digit mobile number to login or sign up</p>
-            
-            <form onsubmit="handleSignup(event)" class="space-y-4">
-                <div class="flex rounded-lg border border-gray-300 overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
-                    <span class="bg-gray-100 px-3 py-3 text-gray-500 font-medium text-sm flex items-center">+91</span>
-                    <input type="text" id="mobile-input" maxlength="10" placeholder="Enter Mobile Number" 
-                        class="w-full px-4 py-3 outline-none text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
-                </div>
-                <button type="submit" class="w-full py-3 bg-[#fb641b] text-white font-bold rounded-lg shadow-md hover:bg-orange-600 transition">
-                    Continue
-                </button>
-            </form>
+  <!-- HEADER -->
+  <header class="bg-blue-600 text-white p-3 shadow-md sticky top-0 z-50">
+    <div class="flex items-center justify-between max-w-7xl mx-auto">
+      <h1 class="text-lg font-bold cursor-pointer" onclick="switchView('home')">Nikhilfx</h1>
+      <div class="flex space-x-3 text-sm">
+        <button onclick="switchView('orders')" class="hover:underline">My Orders</button>
+      </div>
+    </div>
+    <!-- SEARCH BAR -->
+    <div class="relative mt-2 max-w-7xl mx-auto">
+      <input id="search-input" type="search" placeholder="Search for 10,000+ products, bags, dresses, prices (e.g. 1199)..." class="w-full bg-white text-gray-800 text-sm px-4 py-2 rounded-md focus:outline-none" autocomplete="off">
+    </div>
+  </header>
+
+  <!-- SPINNER -->
+  <div id="loading-spinner" class="hidden fixed inset-0 bg-black/30 z-50 flex items-center justify-center">
+    <div class="bg-white p-4 rounded-xl shadow-lg flex items-center space-x-3">
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <span class="text-gray-700 font-medium text-sm">Loading products...</span>
+    </div>
+  </div>
+
+  <!-- VIEWS CONTAINER -->
+  <div id="views-container" class="max-w-7xl mx-auto">
+
+    <!-- HOME VIEW -->
+    <div id="view-home" class="view-section">
+      
+      <!-- CATEGORIES SCROLL -->
+      <div class="flex space-x-6 overflow-x-auto py-3 bg-white px-4 shadow-sm my-2 scrollbar-none">
+        <button onclick="filterCategory('all')" class="text-sm font-medium whitespace-nowrap text-gray-700 hover:text-blue-600 focus:text-blue-600">All</button>
+        <button onclick="filterCategory('top-offers')" class="text-sm font-medium whitespace-nowrap text-gray-700 hover:text-blue-600">⚡ Top Offers</button>
+        <button onclick="filterCategory('electronics')" class="text-sm font-medium whitespace-nowrap text-gray-700 hover:text-blue-600">💻 Electronics & Laptops</button>
+        <button onclick="filterCategory('fashion')" class="text-sm font-medium whitespace-nowrap text-gray-700 hover:text-blue-600">👗 Fashion & Bags</button>
+      </div>
+
+      <!-- BANNER WITH PROFILE PHOTO -->
+      <div class="relative bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-6 m-4 rounded-xl shadow-md flex items-center justify-between overflow-hidden">
+        <div>
+          <h1 class="font-serif italic tracking-wide text-2xl font-bold bg-gradient-to-r from-amber-200 via-pink-400 to-indigo-200 bg-clip-text text-transparent drop-shadow-md">
+            Welcome to Nikhil's World!
+          </h1>
+          <p class="text-sm text-blue-100 mt-1">Explore over 10,000+ items across bags, dresses, laptops & more!</p>
         </div>
+        <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-white shadow-lg flex-shrink-0">
+          <img src="1792164386199.png" alt="Nikhil" class="w-full h-full object-cover">
+        </div>
+      </div>
+
+      <!-- PRODUCTS GRID -->
+      <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
+        <!-- Injected via JS -->
+      </div>
     </div>
 
-    <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 hidden bg-gray-900 text-white px-6 py-3 rounded-full shadow-2xl font-medium text-sm"></div>
-
-    <!-- MAIN APP INTERFACE -->
-    <div id="main-app" class="pb-24 max-w-md mx-auto bg-gray-100 min-h-screen relative shadow-xl hidden">
-        
-        <!-- HEADER -->
-        <header class="bg-[#2874f0] text-white p-3 sticky top-0 z-30 shadow-md">
-            <div class="flex items-center justify-between mb-2">
-                <div class="flex items-center space-x-1">
-                    <span class="text-yellow-400 font-black text-lg italic tracking-tighter">Nikhilfx</span>
-                    <span class="text-[10px] text-yellow-300 italic font-semibold">Explore Plus</span>
-                </div>
-                <div class="flex items-center space-x-2 text-xs">
-                    <span class="bg-blue-800 px-2 py-1 rounded font-semibold">Seller</span>
-                    <span class="bg-blue-800 px-2 py-1 rounded font-semibold">🪙 <span id="coin-balance">50</span></span>
-                </div>
-            </div>
-
-            <!-- SEARCH BAR -->
-            <div class="relative">
-                <input type="text" id="search-box" oninput="filterSearch(this.value)" placeholder="Search 1000+ products (500 - 1000 ₹)" class="w-full py-2 pl-9 pr-4 rounded text-gray-800 text-sm bg-white shadow-inner outline-none">
-                <svg class="w-4 h-4 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            </div>
-        </header>
-<img src="1792164386199.png" alt="Nikhil" class="w-full h-full object-cover">
-
-        <!-- VIEWS CONTAINER -->
-        
-        <!-- HOME VIEW -->
-        <div id="view-home" class="tab-view space-y-2">
-            <!-- CATEGORIES SCROLL -->
-            <div class="bg-white py-3 px-2 flex space-x-5 overflow-x-auto shadow-sm text-center scrollbar-none">
-                <div onclick="switchTab('categories', document.getElementById('nav-categories'))" class="shrink-0 cursor-pointer">
-                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold text-lg">🔥</div>
-                    <span class="text-[11px] font-medium text-gray-700">Top Offers</span>
-                </div>
-                <div onclick="switchTab('categories', document.getElementById('nav-categories'))" class="shrink-0 cursor-pointer">
-                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold text-lg">👕</div>
-                    <span class="text-[11px] font-medium text-gray-700">Fashion</span>
-                </div>
-                <div onclick="switchTab('categories', document.getElementById('nav-categories'))" class="shrink-0 cursor-pointer">
-                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold text-lg">📱</div>
-                    <span class="text-[11px] font-medium text-gray-700">Gadgets</span>
-                </div>
-                <div onclick="switchTab('categories', document.getElementById('nav-categories'))" class="shrink-0 cursor-pointer">
-                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold text-lg">💻</div>
-                    <span class="text-[11px] font-medium text-gray-700">Electronics</span>
-                </div>
-                <div onclick="switchTab('categories', document.getElementById('nav-categories'))" class="shrink-0 cursor-pointer">
-                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-1 text-blue-600 font-bold text-lg">🏠</div>
-                    <span class="text-[11px] font-medium text-gray-700">Home</span>
-                </div>
-            </div>
-
-            <!-- HERO BANNER WITH NIKHIL PHOTO -->
-            <div class="mx-2 bg-gradient-to-r from-blue-700 to-indigo-800 rounded-lg p-4 text-white shadow relative overflow-hidden flex items-center justify-between">
-                <div class="max-w-[60%] z-10">
-                    <span class="bg-yellow-400 text-blue-900 font-black text-[10px] px-2 py-0.5 rounded uppercase">Nikhilfx Exclusive</span>
-                    <h3 class="text-sm font-bold mt-1">1000+ Products Store</h3>
-                    <p class="text-xs text-yellow-300 font-semibold mt-0.5">Priced between ₹500 - ₹1000</p>
-                </div>
-                <div class="relative shrink-0">
-                    <div class="w-24 h-24 rounded-full border-2 border-yellow-400 overflow-hidden shadow-md bg-white">
-                        <img src="nikhil.jpg" alt="Nikhil" class="w-full h-full object-cover">
-                    </div>
-                    <div class="absolute -bottom-1 -right-1 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center border-2 border-white shadow text-[10px] font-bold">NX</div>
-                </div>
-            </div>
-
-            <!-- PRODUCTS GRID -->
-            <div class="mx-2 bg-white rounded-lg p-3 shadow-sm">
-                <h3 class="font-bold text-gray-800 text-xs mb-3 uppercase tracking-wider text-gray-500">All Products (₹500 - ₹1000)</h3>
-                <div class="grid grid-cols-2 gap-2" id="product-grid">
-                    <!-- Populated via JS -->
-                </div>
-            </div>
-        </div>
-
-        <!-- PRODUCT DETAILS VIEW -->
-        <div id="view-product-detail" class="tab-view hidden bg-white pb-16">
-            <div class="bg-[#2874f0] text-white p-3 flex items-center space-x-3 sticky top-[48px] z-20 shadow">
-                <button onclick="switchTab('home', document.getElementById('nav-home'))" class="font-bold text-sm">←</button>
-                <span class="text-xs font-semibold truncate">Product Details</span>
-            </div>
-            <div id="product-detail-content" class="p-3 space-y-3">
-                <!-- Populated via JS -->
-            </div>
-        </div>
-
-        <!-- PLAY / SUPERCOIN ZONE VIEW -->
-        <div id="view-play" class="tab-view hidden p-3 space-y-3">
-            <div class="bg-[#2874f0] text-white p-4 rounded-lg shadow text-center space-y-1">
-                <h2 class="text-base font-bold">Nikhilfx Game Zone</h2>
-                <p class="text-xs text-blue-100">Spin the wheel & win exact coins (Max 2 attempts daily)</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm text-center space-y-4">
-                <div class="relative w-40 h-40 mx-auto flex items-center justify-center">
-                    <div id="wheel" class="spinning-wheel w-full h-full rounded-full border-4 border-yellow-500 bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-inner relative text-white font-bold text-xs">
-                        <span class="absolute top-2">20 Coins</span>
-                        <span class="absolute bottom-2">10 Coins</span>
-                        <span class="absolute left-2">50 Coins</span>
-                        <span class="absolute right-2">5 Coins</span>
-                        <div class="w-10 h-10 bg-white text-blue-900 rounded-full shadow flex items-center justify-center text-[10px] font-black">SPIN</div>
-                    </div>
-                    <div class="absolute -top-2 w-0 h-0 border-l-6 border-l-transparent border-r-6 border-r-transparent border-b-10 border-b-red-600"></div>
-                </div>
-                <p class="text-xs font-bold text-gray-700">Attempts Left Today: <span id="attempts-left" class="text-blue-600 font-extrabold">2</span></p>
-                <button id="spin-btn" onclick="spinWheel()" class="w-full py-2.5 bg-[#fb641b] text-white font-bold rounded text-xs shadow hover:bg-orange-600">Spin the Wheel</button>
-            </div>
-        </div>
-
-        <!-- CATEGORIES VIEW -->
-        <div id="view-categories" class="tab-view hidden p-3 space-y-3">
-            <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider">All Categories</h2>
-            <div class="grid grid-cols-2 gap-2" id="category-product-grid">
-                <!-- Populated via JS -->
-            </div>
-        </div>
-
-        <!-- ACCOUNT VIEW -->
-        <div id="view-account" class="tab-view hidden p-3 space-y-3">
-            <div class="bg-white p-4 rounded-lg shadow-sm flex items-center space-x-3">
-                <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">NX</div>
-                <div>
-                    <h3 class="font-bold text-gray-900 text-sm">Nikhilfx Verified User</h3>
-                    <p class="text-xs text-gray-500" id="display-mobile">+91 --</p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-lg shadow-sm divide-y divide-gray-100 text-xs font-medium text-gray-700">
-                <div class="p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50" onclick="switchTab('orders', document.getElementById('nav-account'))">
-                    <span>📦 My Orders & Tracking</span>
-                    <span class="text-gray-400">&gt;</span>
-                </div>
-                <div class="p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50" onclick="showHelpCenter()">
-                    <span class="text-red-600 font-bold">🛠️ Cancel / Return / Replace Help</span>
-                    <span class="text-gray-400">&gt;</span>
-                </div>
-                <div class="p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50" onclick="showSupport()">
-                    <span class="text-blue-600 font-bold">🎧 24x7 Customer Support</span>
-                    <span class="text-gray-400">&gt;</span>
-                </div>
-                <div class="p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50" onclick="alert('SuperCoins Wallet: ' + state.coins + ' Coins')">
-                    <span>🪙 SuperCoins Balance</span>
-                    <span class="text-blue-600 font-bold" id="account-coin-val">50 Coins</span>
-                </div>
-                <div class="p-3.5 flex justify-between items-center cursor-pointer hover:bg-gray-50 text-red-600 font-bold" onclick="logout()">
-                    <span>🚪 Logout</span>
-                    <span>&gt;</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- ORDERS VIEW -->
-        <div id="view-orders" class="tab-view hidden p-3 space-y-3">
-            <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider">My Orders & Live Status</h2>
-            <div id="orders-container" class="space-y-2">
-                <!-- Populated via JS -->
-            </div>
-        </div>
-
-        <!-- HELP VIEW -->
-        <div id="view-help" class="tab-view hidden p-3 space-y-3 text-xs">
-            <div class="bg-white p-4 rounded-lg shadow-sm space-y-3">
-                <h2 class="font-bold text-sm text-gray-900 border-b pb-2">Help Center: Cancellation, Return & Replacement</h2>
-                <div class="space-y-1">
-                    <p class="font-bold text-blue-700">1. How to Cancel an Order?</p>
-                    <p class="text-gray-600 leading-relaxed">Go to <b>Account > My Orders</b> and click on "Cancel Order". Refund will be instant.</p>
-                </div>
-                <div class="space-y-1 pt-2">
-                    <p class="font-bold text-blue-700">2. Return & Replacement Policy</p>
-                    <p class="text-gray-600 leading-relaxed">7-day hassle-free return and replacement available for all products.</p>
-                </div>
-                <button onclick="switchTab('orders', document.getElementById('nav-account'))" class="w-full py-2 bg-blue-600 text-white font-bold rounded mt-2">Go to My Orders</button>
-            </div>
-        </div>
-
-        <!-- CART VIEW -->
-        <div id="view-cart" class="tab-view hidden p-3 space-y-3">
-            <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider">My Shopping Cart</h2>
-            <div id="cart-items" class="space-y-2">
-                <!-- Populated via JS -->
-            </div>
-            <div class="bg-white p-3 rounded-lg shadow-sm space-y-2">
-                <div class="flex justify-between text-xs font-semibold">
-                    <span class="text-gray-500">Total Amount:</span>
-                    <span class="font-bold text-sm" id="cart-total">₹0</span>
-                </div>
-                <button onclick="checkout()" class="w-full py-2.5 bg-[#fb641b] text-white font-bold rounded text-xs shadow hover:bg-orange-600">Place Order</button>
-            </div>
-        </div>
-<script>
-  // Product dataset with prices updated to the ₹1000 - ₹1200 range
-  const products = [
-    { id: 1, name: "Classic Leather Backpack", category: "fashion", price: 1199, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62" },
-    { id: 2, name: "Waterproof Travel Laptop Bag", category: "fashion", price: 1149, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3" },
-    { id: 3, name: "Men's Casual Cotton Shirt", category: "fashion", price: 1049, image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf" },
-    { id: 4, name: "Women's Floral Summer Dress", category: "fashion", price: 1199, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1" },
-    { id: 5, name: "Slim Fit Denim Jeans", category: "fashion", price: 1099, image: "https://images.unsplash.com/photo-1542272604-787c3835535d" },
-    { id: 6, name: "Unisex Oversized Hoodie", category: "fashion", price: 1150, image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2" },
-    { id: 7, name: "Wireless Bluetooth Earbuds", category: "electronics", price: 1099, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e" },
-    { id: 8, name: "Smartwatch Fitness Tracker", category: "electronics", price: 1199, image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30" }
-  ];
-
-  // Render products to grid
-  function renderProducts(items) {
-    const container = document.getElementById("product-grid");
-    if (!container) return;
-
-    if (items.length === 0) {
-      container.innerHTML = `<div class="col-span-full py-12 text-center text-gray-500 font-medium">No results found</div>`;
-      return;
-    }
-
-    container.innerHTML = items.map(p => `
-      <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex flex-col justify-between">
-        <img src="${p.image}" class="h-40 w-full object-cover rounded-md mb-2">
-        <h3 class="text-sm font-semibold text-gray-800 line-clamp-1">${p.name}</h3>
-        <p class="text-green-600 font-bold mt-1">₹${p.price}</p>
+    <!-- PRODUCT DETAIL VIEW -->
+    <div id="view-detail" class="view-section hidden p-4">
+      <button onclick="switchView('home')" class="mb-4 text-blue-600 font-medium text-sm flex items-center">&larr; Back to Products</button>
+      <div id="detail-content" class="bg-white p-6 rounded-xl shadow-sm grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Injected via JS -->
       </div>
-    `).join('');
-  }
+    </div>
 
-  // Search input handler with exact match / no results validation
-  function setupSearch() {
-    const searchInput = document.querySelector("input[type='text']");
-    if (searchInput) {
-      searchInput.addEventListener("input", (e) => {
-        const query = e.target.value.toLowerCase().trim();
-        const results = products.filter(p => p.name.toLowerCase().includes(query));
-        renderProducts(results);
+    <!-- ORDERS VIEW -->
+    <div id="view-orders" class="view-section hidden p-4">
+      <button onclick="switchView('home')" class="mb-4 text-blue-600 font-medium text-sm">&larr; Back to Home</button>
+      <h2 class="text-xl font-bold mb-4 text-gray-800">My Order Tracking</h2>
+      <div id="orders-list" class="space-y-4">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- AI ASSISTANT FLOATING WIDGET -->
+  <div class="fixed bottom-4 right-4 z-40">
+    <button onclick="toggleAiChat()" class="bg-blue-600 text-white p-3 rounded-full shadow-lg flex items-center space-x-2 hover:bg-blue-700">
+      <span class="text-xs font-bold">🤖 Nikhil AI</span>
+    </button>
+    <div id="ai-chat-box" class="hidden absolute bottom-14 right-0 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col h-96">
+      <div class="bg-blue-600 text-white p-3 flex justify-between items-center text-sm font-bold">
+        <span>Nikhil AI Assistant</span>
+        <button onclick="toggleAiChat()" class="text-white">&times;</button>
+      </div>
+      <div id="ai-messages" class="flex-1 p-3 overflow-y-auto space-y-2 text-sm bg-gray-50">
+        <div class="bg-blue-100 text-blue-900 p-2 rounded-lg max-w-[80%]">Hi! Ask me to find any product (like "bag", "dress", "laptop") or price between ₹1000-₹1200!</div>
+      </div>
+      <div class="p-2 border-t flex">
+        <input id="ai-input" type="text" placeholder="Ask AI..." class="flex-1 text-sm border px-2 py-1 rounded-l-md focus:outline-none">
+        <button onclick="sendAiMessage()" class="bg-blue-600 text-white px-3 py-1 text-sm rounded-r-md">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Generate 10,000+ realistic products dynamically between ₹1000 and ₹1200
+    const categoriesList = ['fashion', 'electronics', 'top-offers'];
+    const baseNames = [
+      "Classic Leather Backpack", "Waterproof Travel Laptop Bag", "Designer College Bag", 
+      "Women's Floral Summer Dress", "Men's Casual Cotton Shirt", "Slim Fit Denim Jeans", 
+      "Unisex Oversized Hoodie", "UltraPro Laptop Sleeve 15.6", "Wireless Bluetooth Earbuds", 
+      "Smartwatch Fitness Tracker", "Mini Portable Projector", "Gaming Mechanical Keyboard",
+      "Executive Office Handbag", "Party Wear Maxi Dress", "Traditional Kurta Set"
+    ];
+    
+    const imagePool = [
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62",
+      "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3",
+      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf",
+      "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1",
+      "https://images.unsplash.com/photo-1542272604-787c3835535d",
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30"
+    ];
+
+    let products = [];
+    for (let i = 1; i <= 10000; i++) {
+      let randName = baseNames[(i - 1) % baseNames.length] + ` (Model #${i})`;
+      let randCategory = categoriesList[(i - 1) % categoriesList.length];
+      let randPrice = 1000 + (i % 201); // Generates prices strictly between 1000 and 1200
+      let randImage = imagePool[(i - 1) % imagePool.length];
+      
+      products.push({
+        id: i,
+        name: randName,
+        category: randCategory,
+        price: randPrice,
+        image: randImage,
+        description: `High quality item crafted exclusively for Nikhilfx customers. Premium material with top-tier durability and sleek modern design.`
       });
     }
-  }
 
-  // Category selection handler
-  function filterCategory(cat) {
-    if (cat === 'all') {
-      renderProducts(products);
-      return;
+    let currentCategory = 'all';
+    let orders = [
+      { id: "ORD98231", product: "Classic Leather Backpack", price: 1199, status: "Out for Delivery", date: "Oct 18, 2026" }
+    ];
+
+    function showSpinner(callback) {
+      const spinner = document.getElementById("loading-spinner");
+      spinner.classList.remove("hidden");
+      setTimeout(() => {
+        spinner.classList.add("hidden");
+        if (callback) callback();
+      }, 300);
     }
-    const filtered = products.filter(p => p.category === cat);
-    renderProducts(filtered);
-  }
 
-  // Initial load
-  document.addEventListener("DOMContentLoaded", () => {
-    renderProducts(products);
-    setupSearch();
-  });
-</script>
+    function switchView(viewId) {
+      showSpinner(() => {
+        document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+        document.getElementById(`view-${viewId}`).classList.remove('hidden');
+        window.scrollTo(0, 0);
+        if(viewId === 'orders') renderOrders();
+      });
+    }
 
-        <!-- BOTTOM NAVIGATION BAR -->
-        <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 flex justify-around py-2 z-30 shadow-lg text-[10px] text-gray-600">
-            <button onclick="switchTab('home', this)" id="nav-home" class="nav-btn flex flex-col items-center text-blue-600 font-bold">
-                <svg class="w-5 h-5 mb-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                Home
-            </button>
-            <button onclick="switchTab('play', this)" id="nav-play" class="nav-btn flex flex-col items-center hover:text-blue-600">
-                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                Play
-            </button>
-            <button onclick="switchTab('categories', this)" id="nav-categories" class="nav-btn flex flex-col items-center hover:text-blue-600">
-                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                Categories
-            </button>
-            <button onclick="switchTab('account', this)" id="nav-account" class="nav-btn flex flex-col items-center hover:text-blue-600">
-                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                Account
-            </button>
-            <button onclick="switchTab('cart', this)" id="nav-cart" class="nav-btn flex flex-col items-center hover:text-blue-600 relative">
-                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                Cart
-                <span id="cart-badge" class="absolute -top-1 right-2 bg-red-600 text-white text-[9px] w-3.5 h-3.5 rounded-full flex items-center justify-center font-bold">0</span>
-            </button>
-        </nav>
+    function renderProducts(items) {
+      const container = document.getElementById("product-grid");
+      if (!container) return;
 
-    </div>
+      if (items.length === 0) {
+        container.innerHTML = `<div class="col-span-full py-16 text-center text-gray-500 font-medium">No results found</div>`;
+        return;
+      }
 
-    <!-- APPLICATION CODE LOGIC -->
-    <script>
-        // Generating 1000+ realistic products dynamically between ₹500 and ₹1000
-        const categories = ["Fashion", "Gadgets", "Electronics", "Home Decor", "Footwear", "Fitness"];
-        const imagePool = [
-            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=400&q=80"
-        ];
+      // Render first 100 items for performance optimization while keeping full 10k searchable
+      const displayItems = items.slice(0, 100);
 
-        const products = [];
-        for (let i = 1; i <= 1050; i++) {
-            const cat = categories[i % categories.length];
-            const price = 500 + (i * 37) % 501; // Generates values between 500 and 1000
-            const mrp = price + 500;
-            products.push({
-                id: i,
-                name: `Nikhilfx ${cat} Item #${i}`,
-                price: price,
-                mrp: mrp,
-                image: imagePool[i % imagePool.length],
-                discount: `${Math.floor(((mrp - price)/mrp)*100)}% Off`,
-                rating: "4.3 ★",
-                ratingsCount: `${120 + i} Ratings & ${15 + i} Reviews`,
-                description: `High quality ${cat.toLowerCase()} item brought to you exclusively on Nikhilfx. Fully tested, certified, and backed by a 7-day replacement warranty.`,
-                images: [imagePool[i % imagePool.length], imagePool[(i+1) % imagePool.length]],
-                reviews: [
-                    { user: "Ramesh V.", rating: "5 ★", comment: "Awesome quality for this price!" },
-                    { user: "Pooja S.", rating: "4 ★", comment: "Fast delivery by Nikhilfx." }
-                ]
-            });
+      container.innerHTML = displayItems.map(p => `
+        <div onclick="viewProductDetail(${p.id})" class="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex flex-col justify-between cursor-pointer hover:shadow-md transition">
+          <img src="${p.image}" class="h-40 w-full object-cover rounded-md mb-2">
+          <h3 class="text-sm font-semibold text-gray-800 line-clamp-1">${p.name}</h3>
+          <p class="text-green-600 font-bold mt-1">₹${p.price}</p>
+          <span class="text-xs text-blue-500 mt-1 font-medium">View Details &rarr;</span>
+        </div>
+      `).join('');
+    }
+
+    function setupSearch() {
+      const searchInput = document.getElementById("search-input");
+      if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+          const query = e.target.value.toLowerCase().trim();
+          
+          let baseList = currentCategory === 'all' 
+            ? products 
+            : products.filter(p => p.category === currentCategory);
+
+          const results = baseList.filter(p => 
+            p.name.toLowerCase().includes(query) || 
+            p.price.toString().includes(query) ||
+            p.category.toLowerCase().includes(query)
+          );
+          
+          renderProducts(results);
+        });
+      }
+    }
+
+    function filterCategory(cat) {
+      showSpinner(() => {
+        currentCategory = cat;
+        const searchInput = document.getElementById("search-input");
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+        let list = cat === 'all' ? products : products.filter(p => p.category === cat);
+
+        if (query !== '') {
+          list = list.filter(p => 
+            p.name.toLowerCase().includes(query) || 
+            p.price.toString().includes(query) ||
+            p.category.toLowerCase().includes(query)
+          );
         }
 
-        let state = {
-            mobile: localStorage.getItem('nikhilfx_mobile') || '',
-            coins: parseInt(localStorage.getItem('nikhilfx_coins')) || 50,
-            cart: JSON.parse(localStorage.getItem('nikhilfx_cart')) || [],
-            orders: JSON.parse(localStorage.getItem('nikhilfx_orders')) || [],
-            spinData: JSON.parse(localStorage.getItem('nikhilfx_spin')) || { date: '', count: 0 }
-        };
+        renderProducts(list);
+      });
+    }
 
-        window.onload = function() {
-            checkDailyReset();
-            if (state.mobile) {
-                document.getElementById('welcome-modal').classList.add('hidden');
-                document.getElementById('main-app').classList.remove('hidden');
-                document.getElementById('display-mobile').innerText = '+91 ' + state.mobile;
-                updateUI();
-            }
-        };
+    function viewProductDetail(id) {
+      const product = products.find(p => p.id === id);
+      if (!product) return;
 
-        function checkDailyReset() {
-            const today = new Date().toDateString();
-            if (state.spinData.date !== today) {
-                state.spinData = { date: today, count: 0 };
-                localStorage.setItem('nikhilfx_spin', JSON.stringify(state.spinData));
-            }
-        }
+      showSpinner(() => {
+        const detailContainer = document.getElementById("detail-content");
+        detailContainer.innerHTML = `
+          <img src="${product.image}" class="w-full h-80 object-cover rounded-xl shadow-md">
+          <div class="flex flex-col justify-between">
+            <div>
+              <span class="text-xs uppercase tracking-wider bg-blue-100 text-blue-800 px-2 py-1 rounded font-bold">${product.category}</span>
+              <h2 class="text-2xl font-bold text-gray-800 mt-2">${product.name}</h2>
+              <p class="text-2xl font-bold text-green-600 mt-2">₹${product.price}</p>
+              <p class="text-gray-600 text-sm mt-4">${product.description}</p>
+            </div>
+            <div class="mt-6 flex space-x-4">
+              <button onclick="placeOrder('${product.name}', ${product.price})" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg font-bold shadow">Buy Now</button>
+            </div>
+          </div>
+        `;
+        switchView('detail');
+      });
+    }
 
-        function handleSignup(event) {
-            event.preventDefault();
-            const val = document.getElementById('mobile-input').value;
-            if (val.length === 10) {
-                state.mobile = val;
-                localStorage.setItem('nikhilfx_mobile', val);
-                document.getElementById('welcome-modal').classList.add('hidden');
-                document.getElementById('main-app').classList.remove('hidden');
-                document.getElementById('display-mobile').innerText = '+91 ' + val;
-                showToast('Login successful!');
-                updateUI();
-            } else {
-                alert('Enter valid 10-digit mobile number.');
-            }
-        }
+    function placeOrder(productName, price) {
+      orders.unshift({
+        id: "ORD" + Math.floor(10000 + Math.random() * 90000),
+        product: productName,
+        price: price,
+        status: "Order Placed / Processing",
+        date: "Today"
+      });
+      alert("Order placed successfully! Redirecting to tracking.");
+      switchView('orders');
+    }
 
-        function logout() {
-            localStorage.clear();
-            location.reload();
-        }
+    function renderOrders() {
+      const container = document.getElementById("orders-list");
+      if(orders.length === 0) {
+        container.innerHTML = `<p class="text-gray-500">No active orders found.</p>`;
+        return;
+      }
+      container.innerHTML = orders.map(o => `
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-bold text-blue-600">${o.id}</span>
+            <h4 class="font-bold text-gray-800 text-sm">${o.product}</h4>
+            <p class="text-xs text-gray-500">Price: ₹${o.price} | Date: ${o.date}</p>
+          </div>
+          <div class="text-right">
+            <span class="bg-green-100 text-green-800 text-xs px-2.5 py-1 rounded-full font-semibold">${o.status}</span>
+          </div>
+        </div>
+      `).join('');
+    }
 
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.innerText = msg;
-            t.classList.remove('hidden');
-            setTimeout(() => t.classList.add('hidden'), 3000);
-        }
+    function toggleAiChat() {
+      const box = document.getElementById("ai-chat-box");
+      box.classList.toggle("hidden");
+    }
 
-        function filterSearch(query) {
-            const filtered = products.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
-            renderProductList(filtered, 'product-grid');
-        }
+    function sendAiMessage() {
+      const input = document.getElementById("ai-input");
+      const msgBox = document.getElementById("ai-messages");
+      const text = input.value.trim();
+      if(!text) return;
 
-        function updateUI() {
-            document.getElementById('coin-balance').innerText = state.coins;
-            document.getElementById('account-coin-val').innerText = state.coins + ' Coins';
-            document.getElementById('cart-badge').innerText = state.cart.length;
-            
-            const attemptsLeft = 2 - state.spinData.count;
-            document.getElementById('attempts-left').innerText = attemptsLeft >= 0 ? attemptsLeft : 0;
+      msgBox.innerHTML += `<div class="bg-gray-200 text-gray-800 p-2 rounded-lg max-w-[80%] ml-auto text-right">${text}</div>`;
+      input.value = "";
 
-            renderProductList(products.slice(0, 50), 'product-grid'); // Displaying first 50 items on home for fast loading
-            renderProductList(products, 'category-product-grid');
-            renderCart();
-            renderOrders();
-        }
+      setTimeout(() => {
+        let reply = "I can help you find bags, dresses, laptops, or check items between ₹1000-₹1200. Try typing a keyword in the search bar!";
+        const lower = text.toLowerCase();
+        if(lower.includes("bag")) reply = "We have great backpacks and laptop bags priced between ₹1000 and ₹1200! Type 'bag' in the search bar.";
+        else if(lower.includes("dress") || lower.includes("fashion")) reply = "Check out our top fashion and summer dress options under the Fashion category!";
+        else if(lower.includes("laptop") || lower.includes("electronic")) reply = "We have sleeves, earbuds, and tech accessories priced between ₹1000-₹1200!";
+        
+        msgBox.innerHTML += `<div class="bg-blue-100 text-blue-900 p-2 rounded-lg max-w-[80%]">${reply}</div>`;
+        msgBox.scrollTop = msgBox.scrollHeight;
+      }, 500);
+    }
 
-        function renderProductList(list, elementId) {
-            let html = '';
-            list.forEach(p => {
-                html += `
-                    <div onclick="openProduct(${p.id})" class="bg-white p-2.5 rounded shadow-sm border border-gray-100 flex flex-col justify-between cursor-pointer">
-                        <div>
-                            <div class="w-full h-28 bg-gray-50 rounded mb-2 overflow-hidden flex items-center justify-center">
-                                <img src="${p.image}" class="w-full h-full object-cover">
-                            </div>
-                            <p class="text-xs font-semibold text-gray-800 truncate">${p.name}</p>
-                            <div class="flex items-center space-x-1 mt-0.5">
-                                <span class="bg-green-700 text-white text-[9px] px-1 rounded font-bold">${p.rating}</span>
-                                <span class="text-[9px] text-gray-400">(${p.ratingsCount.split(' ')[0]})</span>
-                            </div>
-                            <div class="flex items-center space-x-1.5 mt-1">
-                                <span class="text-xs font-bold text-gray-900">₹${p.price}</span>
-                                <span class="text-[10px] text-gray-400 line-through">₹${p.mrp}</span>
-                                <span class="text-[9px] font-bold text-green-600">${p.discount}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            const el = document.getElementById(elementId);
-            if(el) el.innerHTML = html;
-        }
-
-        let currentRotation = 0;
-        function spinWheel() {
-            checkDailyReset();
-            if (state.spinData.count >= 2) {
-                alert('You have exhausted your 2 daily attempts for spinning the wheel. Come back tomorrow!');
-                return;
-            }
-
-            const wheel = document.getElementById('wheel');
-            const btn = document.getElementById('spin-btn');
-            btn.disabled = true;
-
-            // Define possible stop angles corresponding to specific coin rewards: 5, 10, 20, 50 coins
-            const possibleRewards = [5, 10, 20, 50];
-            const reward = possibleRewards[Math.floor(Math.random() * possibleRewards.length)];
-            
-            // Calculate target rotation angle based on reward to make it land precisely
-            let targetDegree = 0;
-            if (reward === 5) targetDegree = 270;
-            else if (reward === 10) targetDegree = 180;
-            else if (reward === 20) targetDegree = 0;
-            else if (reward === 50) targetDegree = 90;
-
-            currentRotation += 1440 + targetDegree; // 4 full rotations + target stop offset
-            wheel.style.transform = `rotate(${currentRotation}deg)`;
-
-            setTimeout(() => {
-                state.coins += reward;
-                state.spinData.count += 1;
-                localStorage.setItem('nikhilfx_coins', state.coins);
-                localStorage.setItem('nikhilfx_spin', JSON.stringify(state.spinData));
-                updateUI();
-                showToast(`🎉 Congratulations! You won exactly ${reward} SuperCoins!`);
-                btn.disabled = false;
-            }, 4000);
-        }
-
-        function openProduct(id) {
-            const p = products.find(prod => prod.id === id);
-            if (!p) return;
-
-            let imgs = '';
-            p.images.forEach(img => {
-                imgs += `<div class="w-56 h-56 shrink-0 bg-gray-50 rounded overflow-hidden border"><img src="${img}" class="w-full h-full object-cover"></div>`;
-            });
-
-            let revs = '';
-            p.reviews.forEach(r => {
-                revs += `<div class="bg-gray-50 p-2.5 rounded border text-xs space-y-1"><div class="flex justify-between font-bold"><span>${r.user}</span><span class="bg-green-700 text-white px-1 rounded text-[9px]">${r.rating}</span></div><p class="text-gray-600">${r.comment}</p></div>`;
-            });
-
-            document.getElementById('product-detail-content').innerHTML = `
-                <div class="flex space-x-2 overflow-x-auto pb-2 scrollbar-none">${imgs}</div>
-                <div class="bg-white p-3 rounded shadow-sm border space-y-1.5">
-                    <h2 class="text-xs font-bold text-gray-900">${p.name}</h2>
-                    <div class="flex items-center space-x-1"><span class="bg-green-700 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">${p.rating}</span><span class="text-[10px] text-gray-500">${p.ratingsCount}</span></div>
-                    <div class="flex items-baseline space-x-2"><span class="text-base font-black text-gray-900">₹${p.price}</span><span class="text-xs text-gray-400 line-through">₹${p.mrp}</span><span class="text-xs font-bold text-green-600">${p.discount}</span></div>
-                    <p class="text-[11px] text-green-700 font-semibold">Free Delivery &amp; 7 Days Replacement Policy</p>
-                </div>
-                <div class="bg-white p-3 rounded shadow-sm border space-y-1">
-                    <h3 class="text-[11px] font-bold text-gray-800 uppercase">Product Description</h3>
-                    <p class="text-[11px] text-gray-600 leading-relaxed">${p.description}</p>
-                </div>
-                <div class="bg-white p-3 rounded shadow-sm border space-y-2">
-                    <h3 class="text-[11px] font-bold text-gray-800 uppercase">Ratings &amp; Reviews</h3>
-                    <div class="space-y-1.5">${revs}</div>
-                </div>
-                <div class="grid grid-cols-2 gap-2 pt-2">
-                    <button onclick="addToCartAndGo(${p.id})" class="py-2.5 bg-yellow-400 text-blue-900 font-bold rounded text-xs shadow">Add to Cart</button>
-                    <button onclick="buyNow(${p.id})" class="py-2.5 bg-[#fb641b] text-white font-bold rounded text-xs shadow">Buy Now</button>
-                </div>
-            `;
-            switchTab('product-detail', null);
-        }
-
-        function addToCartAndGo(id) {
-            addToCart(id);
-            switchTab('cart', document.getElementById('nav-cart'));
-        }
-
-        function buyNow(id) {
-            addToCart(id);
-            switchTab('cart', document.getElementById('nav-cart'));
-        }
-
-        function addToCart(id) {
-            const prod = products.find(p => p.id === id);
-            state.cart.push(prod);
-            localStorage.setItem('nikhilfx_cart', JSON.stringify(state.cart));
-            updateUI();
-            showToast('Added to Cart!');
-        }
-
-        function removeFromCart(index) {
-            state.cart.splice(index, 1);
-            localStorage.setItem('nikhilfx_cart', JSON.stringify(state.cart));
-            updateUI();
-        }
-
-        function renderCart() {
-            let html = '';
-            let total = 0;
-            if (state.cart.length === 0) {
-                html = '<p class="text-xs text-gray-500 bg-white p-4 rounded shadow-sm">Your cart is empty.</p>';
-            } else {
-                state.cart.forEach((item, index) => {
-                    total += item.price;
-                    html += `
-                        <div class="bg-white p-2.5 rounded shadow-sm border flex items-center justify-between text-xs">
-                            <div class="flex items-center space-x-2">
-                                <img src="${item.image}" class="w-10 h-10 object-cover rounded">
-                                <div><h4 class="font-semibold text-gray-800">${item.name}</h4><p class="font-bold text-green-600">₹${item.price}</p></div>
-                            </div>
-                            <button onclick="removeFromCart(${index})" class="text-red-500 font-bold text-[11px]">Remove</button>
-                        </div>
-                    `;
-                });
-            }
-            document.getElementById('cart-items').innerHTML = html;
-            document.getElementById('cart-total').innerText = '₹' + total;
-        }
-
-        function checkout() {
-            if (state.cart.length === 0) return alert('Cart is empty!');
-            state.cart.forEach(item => {
-                state.orders.unshift({
-                    id: Math.floor(100000 + Math.random() * 900000),
-                    item: item.name,
-                    price: item.price,
-                    status: 'Out for Delivery'
-                });
-            });
-            state.coins += 10;
-            state.cart = [];
-            localStorage.setItem('nikhilfx_cart', JSON.stringify(state.cart));
-            localStorage.setItem('nikhilfx_orders', JSON.stringify(state.orders));
-            localStorage.setItem('nikhilfx_coins', state.coins);
-            updateUI();
-            switchTab('orders', document.getElementById('nav-account'));
-            showToast('Order placed successfully! Earned 10 Coins.');
-        }
-
-        function renderOrders() {
-            let html = '';
-            if (state.orders.length === 0) {
-                html = '<p class="text-xs text-gray-500 bg-white p-4 rounded shadow-sm">No orders placed yet.</p>';
-            } else {
-                state.orders.forEach((o, idx) => {
-                    html += `
-                        <div class="bg-white p-3 rounded shadow-sm border space-y-2 text-xs">
-                            <div class="flex justify-between font-bold text-gray-700">
-                                <span>Order ID: #${o.id}</span>
-                                <span class="text-green-600">${o.status}</span>
-                            </div>
-                            <p class="text-gray-600">${o.item} - ₹${o.price}</p>
-                            <div class="bg-gray-50 p-2 rounded border text-[10px] space-y-0.5">
-                                <p class="font-semibold text-blue-700">Delivery Agent: Ramesh Kumar (9876543210)</p>
-                                <p class="text-gray-500">Delivery expected by Tomorrow, 4:00 PM</p>
-                            </div>
-                            <div class="flex space-x-2 pt-1">
-                                <button onclick="cancelOrder(${idx})" class="w-1/2 py-1.5 bg-red-50 text-red-600 font-bold rounded border border-red-200">Cancel Order</button>
-                                <button onclick="showHelpCenter()" class="w-1/2 py-1.5 bg-blue-50 text-blue-600 font-bold rounded border border-blue-200">Return / Replace</button>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-            document.getElementById('orders-container').innerHTML = html;
-        }
-
-        function cancelOrder(idx) {
-            if(confirm('Are you sure you want to cancel this order?')) {
-                state.orders.splice(idx, 1);
-                localStorage.setItem('nikhilfx_orders', JSON.stringify(state.orders));
-                renderOrders();
-                showToast('Order cancelled successfully. Refund initiated.');
-            }
-        }
-
-        function showHelpCenter() {
-            switchTab('help', null);
-        }
-
-        function showSupport() {
-            alert('Nikhilfx 24x7 Helpdesk: Ticket created. Our support executive will call you on +91 ' + state.mobile);
-        }
-
-        function switchTab(tabName, btnElement) {
-            document.querySelectorAll('.tab-view').forEach(v => v.classList.add('hidden'));
-            document.getElementById('view-' + tabName).classList.remove('hidden');
-            if(btnElement) {
-                document.querySelectorAll('.nav-btn').forEach(b => {
-                    b.classList.remove('text-blue-600', 'font-bold');
-                    b.classList.add('text-gray-600');
-                });
-                btnElement.classList.add('text-blue-600', 'font-bold');
-                btnElement.classList.remove('text-gray-600');
-            }
-            window.scrollTo(0, 0);
-        }
-    </script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderProducts(products);
+      setupSearch();
+    });
+  </script>
 </body>
 </html>
-
