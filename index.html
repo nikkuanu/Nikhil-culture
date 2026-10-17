@@ -3,163 +3,170 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nikhilfx - Premium E-Commerce Empire</title>
+  <title>Nikhilfx — Elite E-Commerce Empire</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .nikhilfx-logo { font-family: 'Playfair Display', serif; }
+  </style>
 </head>
-<body class="bg-gray-100 min-h-screen pb-24">
+<body class="bg-gray-50 min-h-screen pb-28 text-gray-900">
 
-  <!-- AUTH MODAL (Phone & Name Login with CR7 Logo, pops up automatically after 30s) -->
-  <div id="auth-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-    <div class="bg-white p-6 rounded-2xl shadow-2xl max-w-sm w-full text-center">
-      <div class="w-20 h-20 mx-auto mb-3 rounded-full overflow-hidden border-2 border-blue-600 shadow-md">
-        <img src="https://image.api.playstation.com/vulcan/ap/rnd/202211/0711/kh4ZIqKtQzUnG393E2p9Y74p.png" alt="CR7 Logo" class="w-full h-full object-cover">
+  <!-- AUTH MODAL -->
+  <div id="auth-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white p-7 rounded-3xl shadow-2xl max-w-sm w-full text-center border border-gray-100">
+      <div class="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-indigo-600 shadow-lg">
+        <img src="https://i.ibb.co/6P262m2/1000091618.jpg" alt="CR7 GOAT" class="w-full h-full object-cover">
       </div>
-      <h2 class="text-xl font-bold text-gray-800 mb-1">CR7 x Nikhilfx</h2>
-      <p class="text-xs text-gray-500 mb-4">Enter your name and phone number to sign up or log in.</p>
-      <input id="auth-name-input" type="text" placeholder="Enter your full name" class="w-full border px-3 py-2 rounded-lg text-sm mb-3 focus:outline-none focus:border-blue-600">
-      <input id="auth-phone-input" type="tel" maxlength="10" placeholder="Enter 10-digit mobile number" class="w-full border px-3 py-2 rounded-lg text-sm mb-4 focus:outline-none focus:border-blue-600">
-      <button onclick="handlePhoneAuth()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg shadow">Continue</button>
+      <h2 class="text-2xl font-bold text-gray-900 mb-1">CR7 x Nikhilfx</h2>
+      <p class="text-xs text-gray-500 mb-5">Enter your name and 10-digit mobile number to access elite shopping.</p>
+      <input id="auth-name-input" type="text" placeholder="Enter your full name" class="w-full border border-gray-200 bg-gray-50 px-4 py-3 rounded-xl text-sm mb-3 focus:outline-none focus:border-indigo-600 focus:bg-white transition">
+      <input id="auth-phone-input" type="tel" maxlength="10" placeholder="10-digit mobile number" class="w-full border border-gray-200 bg-gray-50 px-4 py-3 rounded-xl text-sm mb-5 focus:outline-none focus:border-indigo-600 focus:bg-white transition">
+      <button onclick="handlePhoneAuth()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-indigo-200 transition">Continue Securely</button>
     </div>
   </div>
 
   <!-- HEADER -->
-  <header class="bg-blue-600 text-white p-3 shadow-md sticky top-0 z-50">
-    <div class="flex items-center justify-between max-w-7xl mx-auto">
-      <h1 class="font-serif italic tracking-wide text-xl font-bold cursor-pointer bg-gradient-to-r from-amber-200 to-white bg-clip-text text-transparent" onclick="switchView('home')">Nikhilfx</h1>
+  <header class="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white p-4 shadow-xl sticky top-0 z-40">
+    <div class="flex items-center justify-between max-w-7xl mx-auto mb-3">
+      <h1 class="nikhilfx-logo italic tracking-wider text-2xl font-bold cursor-pointer bg-gradient-to-r from-amber-200 via-white to-indigo-200 bg-clip-text text-transparent drop-shadow" onclick="switchView('home')">Nikhilfx</h1>
       <div class="flex items-center space-x-3">
-        <!-- SuperCoins Display -->
-        <div class="flex items-center space-x-1 bg-blue-700 px-3 py-1 rounded-full text-xs font-bold border border-blue-400">
+        <div class="flex items-center space-x-1.5 bg-black/20 backdrop-blur px-3.5 py-1.5 rounded-full text-xs font-bold border border-white/20 shadow-inner">
           <span>⚡ SuperCoins:</span>
-          <span id="supercoin-count" class="text-amber-300">150</span>
+          <span id="supercoin-count" class="text-amber-300 font-extrabold">150</span>
         </div>
-        <button id="auth-btn-header" onclick="openAuthModal()" class="bg-amber-500 hover:bg-amber-600 text-white px-3 py-1 rounded text-xs font-bold shadow">Login</button>
+        <button id="auth-btn-header" onclick="openAuthModal()" class="bg-amber-400 hover:bg-amber-500 text-gray-900 px-4 py-1.5 rounded-xl text-xs font-bold shadow-md transition">Login</button>
       </div>
     </div>
     <!-- SEARCH BAR -->
-    <div class="relative mt-2 max-w-7xl mx-auto">
-      <input id="search-input" type="search" placeholder="Search across 3M+ items, prices (₹1000-₹1200)..." class="w-full bg-white text-gray-800 text-sm px-4 py-2 rounded-md focus:outline-none" autocomplete="off">
+    <div class="max-w-7xl mx-auto">
+      <input id="search-input" type="search" placeholder="Search across 5,000+ items (Skincare, Bikes, Bags, Electronics)..." class="w-full bg-white text-gray-900 text-sm px-4 py-3 rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-amber-400 transition" autocomplete="off">
     </div>
   </header>
 
   <!-- SPINNER -->
-  <div id="loading-spinner" class="hidden fixed inset-0 bg-black/30 z-50 flex items-center justify-center">
-    <div class="bg-white p-4 rounded-xl shadow-lg flex items-center space-x-3">
-      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-      <span class="text-gray-700 font-medium text-sm">Loading catalogue...</span>
+  <div id="loading-spinner" class="hidden fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center">
+    <div class="bg-white p-5 rounded-2xl shadow-2xl flex items-center space-x-3">
+      <div class="animate-spin rounded-full h-7 w-7 border-3 border-indigo-600 border-t-transparent"></div>
+      <span class="text-gray-800 font-semibold text-sm">Loading inventory...</span>
     </div>
   </div>
 
   <!-- VIEWS CONTAINER -->
-  <div id="views-container" class="max-w-7xl mx-auto">
+  <div class="max-w-7xl mx-auto">
 
     <!-- HOME VIEW -->
     <div id="view-home" class="view-section">
       <!-- CATEGORIES SCROLL -->
-      <div class="flex space-x-6 overflow-x-auto py-3 bg-white px-4 shadow-sm my-2">
-        <button onclick="filterCategory('all')" class="text-sm font-medium whitespace-nowrap text-gray-700 hover:text-blue-600">All</button>
-        <button onclick="filterCategory('top-offers')" class="text-sm font-medium whitespace-nowrap text-gray-700 hover:text-blue-600">⚡ Top Offers</button>
-        <button onclick="filterCategory('electronics')" class="text-sm font-medium whitespace-nowrap text-gray-700 hover:text-blue-600">💻 Electronics</button>
-        <button onclick="filterCategory('fashion')" class="text-sm font-medium whitespace-nowrap text-gray-700 hover:text-blue-600">👗 Fashion & Bags</button>
+      <div class="flex space-x-3 overflow-x-auto py-3 bg-white px-4 shadow-sm my-2 scrollbar-none border-b border-gray-100">
+        <button onclick="filterCategory('all')" class="category-btn text-xs font-bold whitespace-nowrap bg-gray-100 text-gray-800 px-4 py-2 rounded-xl hover:bg-indigo-600 hover:text-white transition">All Items</button>
+        <button onclick="filterCategory('top-offers')" class="category-btn text-xs font-bold whitespace-nowrap bg-gray-100 text-gray-800 px-4 py-2 rounded-xl hover:bg-indigo-600 hover:text-white transition">⚡ Top Offers</button>
+        <button onclick="filterCategory('electronics')" class="category-btn text-xs font-bold whitespace-nowrap bg-gray-100 text-gray-800 px-4 py-2 rounded-xl hover:bg-indigo-600 hover:text-white transition">💻 Electronics</button>
+        <button onclick="filterCategory('fashion')" class="category-btn text-xs font-bold whitespace-nowrap bg-gray-100 text-gray-800 px-4 py-2 rounded-xl hover:bg-indigo-600 hover:text-white transition">👜 Bags & Fashion</button>
+        <button onclick="filterCategory('skincare')" class="category-btn text-xs font-bold whitespace-nowrap bg-gray-100 text-gray-800 px-4 py-2 rounded-xl hover:bg-indigo-600 hover:text-white transition">✨ Skincare</button>
+        <button onclick="filterCategory('bikes')" class="category-btn text-xs font-bold whitespace-nowrap bg-gray-100 text-gray-800 px-4 py-2 rounded-xl hover:bg-indigo-600 hover:text-white transition">🚴 Bikes & Cycles</button>
       </div>
 
-      <!-- BANNER WITH NIKHIL'S PHOTO -->
-      <div class="relative bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-6 m-4 rounded-xl shadow-md flex items-center justify-between overflow-hidden">
-        <div>
-          <h1 class="font-serif italic tracking-wide text-2xl font-bold bg-gradient-to-r from-amber-200 via-pink-400 to-indigo-200 bg-clip-text text-transparent drop-shadow-md">
-            Welcome to Nikhil's World!
-          </h1>
-          <p class="text-sm text-blue-100 mt-1">Explore over 3 Million+ unique catalog items priced strictly between ₹1000 - ₹1200!</p>
+      <!-- BANNER -->
+      <div class="relative bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-950 text-white p-6 m-4 rounded-2xl shadow-xl flex items-center justify-between overflow-hidden border border-indigo-900/50">
+        <div class="relative z-10">
+          <h2 class="nikhilfx-logo italic tracking-wide text-2xl font-bold bg-gradient-to-r from-amber-200 via-pink-300 to-indigo-200 bg-clip-text text-transparent drop-shadow">
+            Nikhil's Supreme Vault
+          </h2>
+          <p class="text-xs text-indigo-200 mt-1 max-w-md">Strict isolation catalog with 5,000+ authentic items across Skincare, Bikes, Electronics, Bags, and Elite Offers.</p>
         </div>
-        <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-white shadow-lg flex-shrink-0">
+        <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-amber-400 shadow-2xl flex-shrink-0 relative z-10 bg-white">
           <img src="1792164386199.png" alt="Nikhil" class="w-full h-full object-cover">
         </div>
+        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-2xl"></div>
       </div>
 
       <!-- PRODUCTS GRID -->
       <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4"></div>
     </div>
 
-    <!-- PLAY VIEW (SUPERCOIN SPINNER - 2 SPINS/DAY LIMIT) -->
+    <!-- PLAY VIEW -->
     <div id="view-play" class="view-section hidden p-6 text-center">
-      <div class="bg-white p-6 rounded-2xl shadow-md max-w-md mx-auto border border-gray-100">
-        <h2 class="text-xl font-bold text-gray-800 mb-1">⚡ Nikhilfx Game Zone</h2>
-        <p class="text-xs text-gray-500 mb-4">Spin the wheel to win SuperCoins! (<span id="spins-left">2</span>/2 spins left today)</p>
+      <div class="bg-white p-7 rounded-3xl shadow-xl max-w-md mx-auto border border-gray-100">
+        <h2 class="text-2xl font-extrabold text-gray-900 mb-1">⚡ Nikhilfx Game Zone</h2>
+        <p class="text-xs text-gray-500 mb-6">Spin the wheel to win instant SuperCoins! (<span id="spins-left">2</span>/2 spins left today)</p>
         
-        <div class="relative w-48 h-48 mx-auto bg-gradient-to-tr from-amber-400 to-yellow-200 rounded-full flex items-center justify-center shadow-inner border-4 border-amber-500 mb-6 transition-transform duration-1000" id="spin-wheel">
-          <span id="spin-result-text" class="text-gray-800 font-bold text-sm">Tap Spin!</span>
+        <div class="relative w-52 h-52 mx-auto bg-gradient-to-tr from-amber-400 via-yellow-300 to-amber-500 rounded-full flex items-center justify-center shadow-inner border-4 border-amber-600 mb-6 transition-transform duration-1000" id="spin-wheel">
+          <span id="spin-result-text" class="text-gray-900 font-extrabold text-sm drop-shadow-xs">Tap Spin!</span>
         </div>
 
-        <button id="spin-btn" onclick="spinWheel()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-full shadow transition w-full">Spin & Win SuperCoins</button>
+        <button id="spin-btn" onclick="spinWheel()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg shadow-indigo-200 transition w-full">Spin & Win SuperCoins</button>
       </div>
     </div>
 
     <!-- ORDERS VIEW -->
     <div id="view-orders" class="view-section hidden p-4">
-      <h2 class="text-xl font-bold mb-4 text-gray-800">My Orders & Live Tracking</h2>
+      <h2 class="text-xl font-bold mb-4 text-gray-900">My Orders, Returns & Live Tracking</h2>
       <div id="orders-list" class="space-y-4"></div>
     </div>
 
     <!-- ACCOUNT VIEW -->
     <div id="view-account" class="view-section hidden p-4">
-      <div class="bg-white p-6 rounded-xl shadow-sm max-w-lg mx-auto text-center">
-        <div class="w-24 h-24 rounded-full overflow-hidden mx-auto border-2 border-blue-600 mb-4 shadow">
+      <div class="bg-white p-7 rounded-3xl shadow-xl max-w-lg mx-auto text-center border border-gray-100">
+        <div class="w-24 h-24 rounded-full overflow-hidden mx-auto border-2 border-indigo-600 mb-4 shadow-md bg-gray-100">
           <img src="1792164386199.png" alt="Nikhil" class="w-full h-full object-cover">
         </div>
-        <h2 id="account-name" class="text-xl font-bold text-gray-800">Nikhil</h2>
-        <p id="account-phone" class="text-sm text-gray-500 mb-4">+91 98765 43210</p>
-        <div class="bg-blue-50 p-4 rounded-lg flex justify-around text-blue-900 font-bold text-sm">
+        <h2 id="account-name" class="text-xl font-bold text-gray-900">Nikhil</h2>
+        <p id="account-phone" class="text-sm text-gray-500 mb-5">+91 98765 43210</p>
+        <div class="bg-indigo-50/70 p-4 rounded-2xl flex justify-around text-indigo-950 font-bold text-sm mb-6 border border-indigo-100">
           <div>SuperCoins: <span id="account-supercoins" class="text-amber-600">150</span></div>
           <div>Active Orders: <span id="account-orders-count">1</span></div>
         </div>
-        <button onclick="openAuthModal()" class="mt-6 text-xs text-red-600 font-bold border border-red-200 px-4 py-2 rounded hover:bg-red-50">Switch Account / Phone Login</button>
+        <button onclick="openAuthModal()" class="text-xs text-rose-600 font-bold border border-rose-200 px-5 py-2.5 rounded-xl hover:bg-rose-50 transition">Switch Account / Phone Login</button>
       </div>
     </div>
 
     <!-- PRODUCT DETAIL VIEW -->
     <div id="view-detail" class="view-section hidden p-4">
-      <button onclick="switchView('home')" class="mb-4 text-blue-600 font-medium text-sm flex items-center">&larr; Back</button>
-      <div id="detail-content" class="bg-white p-6 rounded-xl shadow-sm grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+      <button onclick="switchView('home')" class="mb-4 text-indigo-600 font-semibold text-sm flex items-center hover:underline">&larr; Back to Catalog</button>
+      <div id="detail-content" class="bg-white p-6 rounded-3xl shadow-xl border border-gray-100 grid grid-cols-1 md:grid-cols-2 gap-6"></div>
     </div>
 
   </div>
 
   <!-- BOTTOM NAVIGATION BAR -->
-  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg flex justify-around py-2 z-50 text-xs font-medium text-gray-600">
-    <button onclick="switchView('home')" class="flex flex-col items-center hover:text-blue-600 focus:text-blue-600">
-      <span class="text-lg">🏠</span>
+  <nav class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 shadow-2xl flex justify-around py-3 z-40 text-xs font-semibold text-gray-600">
+    <button onclick="switchView('home')" class="flex flex-col items-center hover:text-indigo-600 focus:text-indigo-600 transition">
+      <span class="text-xl mb-0.5">🏠</span>
       <span>Home</span>
     </button>
-    <button onclick="switchView('play')" class="flex flex-col items-center hover:text-blue-600 focus:text-blue-600">
-      <span class="text-lg">🎮</span>
+    <button onclick="switchView('play')" class="flex flex-col items-center hover:text-indigo-600 focus:text-indigo-600 transition">
+      <span class="text-xl mb-0.5">🎮</span>
       <span>Play</span>
     </button>
-    <button onclick="switchView('orders')" class="flex flex-col items-center hover:text-blue-600 focus:text-blue-600">
-      <span class="text-lg">📦</span>
+    <button onclick="switchView('orders')" class="flex flex-col items-center hover:text-indigo-600 focus:text-indigo-600 transition">
+      <span class="text-xl mb-0.5">📦</span>
       <span>Orders</span>
     </button>
-    <button onclick="switchView('account')" class="flex flex-col items-center hover:text-blue-600 focus:text-blue-600">
-      <span class="text-lg">👤</span>
+    <button onclick="switchView('account')" class="flex flex-col items-center hover:text-indigo-600 focus:text-indigo-600 transition">
+      <span class="text-xl mb-0.5">👤</span>
       <span>Account</span>
     </button>
   </nav>
 
   <!-- AI ASSISTANT -->
-  <div class="fixed bottom-16 right-4 z-40">
-    <button onclick="toggleAiChat()" class="bg-blue-600 text-white p-3 rounded-full shadow-lg flex items-center space-x-2 hover:bg-blue-700">
-      <span class="text-xs font-bold">🤖 Nikhil AI</span>
+  <div class="fixed bottom-20 right-4 z-50">
+    <button onclick="toggleAiChat()" class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 hover:scale-105 transition">
+      <span class="text-base">🤖</span>
+      <span class="text-xs font-bold tracking-wide">Nikhil AI</span>
     </button>
-    <div id="ai-chat-box" class="hidden absolute bottom-14 right-0 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col h-80">
-      <div class="bg-blue-600 text-white p-3 flex justify-between items-center text-sm font-bold">
+    <div id="ai-chat-box" class="hidden absolute bottom-16 right-0 w-80 bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col h-88">
+      <div class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white p-4 flex justify-between items-center text-sm font-bold shadow">
         <span>Nikhil AI Assistant</span>
-        <button onclick="toggleAiChat()" class="text-white">&times;</button>
+        <button onclick="toggleAiChat()" class="text-white text-lg font-bold hover:opacity-80">&times;</button>
       </div>
-      <div id="ai-messages" class="flex-1 p-3 overflow-y-auto space-y-2 text-sm bg-gray-50">
-        <div class="bg-blue-100 text-blue-900 p-2 rounded-lg max-w-[80%]">Ask me to find any of our 3M+ unique products or check order status!</div>
+      <div id="ai-messages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-gray-50/50">
+        <div class="bg-indigo-50 text-indigo-950 p-3 rounded-2xl max-w-[85%] font-medium leading-relaxed shadow-xs">Hello! Ask me to search any of our 5,000+ items across skincare, bikes, bags, or check order tracking!</div>
       </div>
-      <div class="p-2 border-t flex">
-        <input id="ai-input" type="text" placeholder="Ask AI..." class="flex-1 text-sm border px-2 py-1 rounded-l-md focus:outline-none">
-        <button onclick="sendAiMessage()" class="bg-blue-600 text-white px-3 py-1 text-sm rounded-r-md">Send</button>
+      <div class="p-3 border-t border-gray-100 bg-white flex items-center space-x-2">
+        <input id="ai-input" type="text" placeholder="Ask AI anything..." class="flex-1 text-xs border border-gray-200 bg-gray-50 px-3 py-2.5 rounded-xl focus:outline-none focus:border-indigo-600">
+        <button onclick="sendAiMessage()" class="bg-indigo-600 text-white px-4 py-2.5 text-xs font-bold rounded-xl shadow hover:bg-indigo-700 transition">Send</button>
       </div>
     </div>
   </div>
@@ -191,7 +198,7 @@
       document.getElementById("auth-btn-header").innerText = "CR7 Verified";
       document.getElementById("auth-modal").classList.add("hidden");
       
-      alert("Successful login! Welcome to Nikhil's World.");
+      alert("Successful login! Welcome to Nikhil's Supreme World.");
     }
 
     function updateSuperCoins(amount) {
@@ -201,42 +208,48 @@
       if(accCoins) accCoins.innerText = superCoins;
     }
 
-    // Perfectly strict mapping pools ensuring laptops never mix with bags
+    // Strict isolated master category pools to prevent any cross-mixing
+    const skincarePool = [
+      { name: "Hydrating Facial Serum with Vitamin C", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be" },
+      { name: "Anti-Aging Night Repair Cream", img: "https://images.unsplash.com/photo-1608248597359-f53835f1181f" },
+      { name: "Organic Aloe Vera Soothing Gel", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03" },
+      { name: "Deep Cleansing Charcoal Face Wash", img: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b" },
+      { name: "Nourishing Body Lotion SPF 30", img: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d" }
+    ];
+
+    const bikePool = [
+      { name: "Pro Carbon Frame Mountain Bike", img: "https://images.unsplash.com/photo-1485965120184-e220f721d03e" },
+      { name: "Urban Commuter Gear Cycle", img: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7" },
+      { name: "Electric Sports City Bicycle", img: "https://images.unsplash.com/photo-1571068316344-75bc76f77890" },
+      { name: "Performance Road Racing Bicycle", img: "https://images.unsplash.com/photo-1511994298241-608e28f14fde" }
+    ];
+
     const fashionPool = [
       { name: "Classic Leather Backpack", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62" },
       { name: "Waterproof Travel Laptop Bag", img: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3" },
       { name: "Designer College Handbag", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3" },
       { name: "Stylish Canvas Duffel Bag", img: "https://images.unsplash.com/photo-1547949003-9792a18a2601" },
       { name: "Women's Floral Summer Dress", img: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1" },
-      { name: "Men's Casual Cotton Shirt", img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf" },
-      { name: "Slim Fit Denim Jeans", img: "https://images.unsplash.com/photo-1542272604-787c3835535d" },
-      { name: "Unisex Oversized Hoodie", img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2" },
-      { name: "Traditional Kurta Set", img: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b" },
-      { name: "Party Wear Velvet Gown", img: "https://images.unsplash.com/photo-1566174053879-31528523f8ae" },
-      { name: "Formal Office Blazer", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35" }
+      { name: "Men's Casual Cotton Shirt", img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf" }
     ];
 
     const electronicPool = [
       { name: "Nikhilfx UltraPro Laptop 16GB", img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8" },
       { name: "Gaming Laptop RTX 4060", img: "https://images.unsplash.com/photo-1603302576837-37561b2e2302" },
       { name: "Wireless Bluetooth Earbuds", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e" },
-      { name: "Smartwatch Fitness Tracker", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30" },
-      { name: "Mini Portable USB Projector", img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97" },
-      { name: "Gaming RGB Mechanical Keyboard", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3" },
-      { name: "Ergonomic Wireless Mouse", img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7" },
-      { name: "Active Noise Cancelling Pods", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df" },
-      { name: "Fast Charging Power Bank 10000mAh", img: "https://images.unsplash.com/photo-1609592424097-d51d2e148c3e" }
+      { name: "Smartwatch Fitness Tracker", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30" }
     ];
 
     const offerPool = [
       { name: "SuperDeal Combo Casual Pack", img: "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7" },
       { name: "Limited Edition Streetwear Jacket", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5" },
-      { name: "Smart Gadget Mystery Box", img: "https://images.unsplash.com/photo-1526738549149-8e07eca6c147" },
-      { name: "Premium Designer Chronograph Watch", img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9" }
+      { name: "Smart Gadget Mystery Box", img: "https://images.unsplash.com/photo-1526738549149-8e07eca6c147" }
     ];
 
-    const totalSimulatedProducts = 3000000;
+    const totalSimulatedProducts = 5000;
     const masterPools = [
+      { cat: 'skincare', items: skincarePool },
+      { cat: 'bikes', items: bikePool },
       { cat: 'fashion', items: fashionPool },
       { cat: 'electronics', items: electronicPool },
       { cat: 'top-offers', items: offerPool }
@@ -252,11 +265,11 @@
       
       return {
         id: id,
-        name: batchNum === 1 ? baseItem.name : `${baseItem.name} Edition #${batchNum}`,
+        name: batchNum === 1 ? baseItem.name : `${baseItem.name} Series #${batchNum}`,
         category: pool.cat,
         price: 1000 + (id % 201),
         image: baseItem.img,
-        description: `Verified authentic Nikhilfx catalog item #${id}. Superior quality build, precision crafted with elite features.`
+        description: `Verified authentic Nikhilfx catalog item #${id}. Precision crafted under elite quality benchmarks.`
       };
     }
 
@@ -282,7 +295,7 @@
       setTimeout(() => {
         spinner.classList.add("hidden");
         if (cb) cb();
-      }, 150);
+      }, 120);
     }
 
     function switchView(viewId) {
@@ -302,16 +315,18 @@
       if (!container) return;
 
       if (items.length === 0) {
-        container.innerHTML = `<div class="col-span-full py-16 text-center text-gray-500 font-medium">No results found</div>`;
+        container.innerHTML = `<div class="col-span-full py-16 text-center text-gray-400 font-medium text-sm">No matching items found</div>`;
         return;
       }
 
       container.innerHTML = items.map(p => `
-        <div onclick="viewProductDetail(${p.id})" class="bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex flex-col justify-between cursor-pointer hover:shadow-md transition">
-          <img src="${p.image}" class="h-40 w-full object-cover rounded-md mb-2">
-          <h3 class="text-sm font-semibold text-gray-800 line-clamp-1">${p.name}</h3>
-          <p class="text-green-600 font-bold mt-1">₹${p.price}</p>
-          <span class="text-xs text-blue-500 mt-1 font-medium">View Details &rarr;</span>
+        <div onclick="viewProductDetail(${p.id})" class="bg-white p-3.5 rounded-2xl shadow-xs border border-gray-100 flex flex-col justify-between cursor-pointer hover:shadow-lg transition group">
+          <div class="overflow-hidden rounded-xl mb-3 bg-gray-50 aspect-square">
+            <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          </div>
+          <h3 class="text-xs font-bold text-gray-800 line-clamp-1 mb-1">${p.name}</h3>
+          <p class="text-emerald-600 font-extrabold text-sm">₹${p.price}</p>
+          <span class="text-[11px] text-indigo-600 font-bold mt-2 group-hover:underline">View Details &rarr;</span>
         </div>
       `).join('');
     }
@@ -330,7 +345,9 @@
           for(let i=1; i<=totalSimulatedProducts && matched.length < 50; i++) {
             let p = getProductById(i);
             if(currentCategory !== 'all' && p.category !== currentCategory) continue;
-            if(p.name.toLowerCase().includes(query) || p.price.toString().includes(query) || p.category.toLowerCase().includes(query) || p.id.toString() === query) {
+            
+            // Strict query checking so bag search strictly yields bags
+            if(p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query) || p.id.toString() === query) {
               matched.push(p);
             }
           }
@@ -348,7 +365,7 @@
           for(let i=1; i<=totalSimulatedProducts && matched.length < 50; i++) {
             let p = getProductById(i);
             if(cat !== 'all' && p.category !== cat) continue;
-            if(p.name.toLowerCase().includes(query) || p.price.toString().includes(query)) {
+            if(p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query)) {
               matched.push(p);
             }
           }
@@ -364,15 +381,17 @@
       if (!product) return;
       showSpinner(() => {
         document.getElementById("detail-content").innerHTML = `
-          <img src="${product.image}" class="w-full h-80 object-cover rounded-xl shadow-md">
-          <div class="flex flex-col justify-between">
+          <div class="rounded-2xl overflow-hidden bg-gray-50 aspect-square shadow-inner">
+            <img src="${product.image}" class="w-full h-full object-cover">
+          </div>
+          <div class="flex flex-col justify-between py-2">
             <div>
-              <span class="text-xs uppercase bg-blue-100 text-blue-800 px-2 py-1 rounded font-bold">${product.category}</span>
-              <h2 class="text-2xl font-bold text-gray-800 mt-2">${product.name}</h2>
-              <p class="text-2xl font-bold text-green-600 mt-2">₹${product.price}</p>
-              <p class="text-gray-600 text-sm mt-4">${product.description}</p>
+              <span class="text-[10px] uppercase tracking-wider bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full font-extrabold">${product.category}</span>
+              <h2 class="text-xl font-bold text-gray-900 mt-3">${product.name}</h2>
+              <p class="text-2xl font-black text-emerald-600 mt-2">₹${product.price}</p>
+              <p class="text-gray-600 text-xs mt-4 leading-relaxed">${product.description}</p>
             </div>
-            <button onclick="placeOrder('${product.name}', ${product.price})" class="mt-6 bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg font-bold shadow">Buy Now (Earn SuperCoins)</button>
+            <button onclick="placeOrder('${product.name}', ${product.price})" class="mt-6 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white py-3.5 rounded-2xl font-bold shadow-lg shadow-amber-100 transition">Buy Now & Earn SuperCoins</button>
           </div>
         `;
         switchView('detail');
@@ -389,8 +408,7 @@
         location: "Warehouse Dispatch Hub"
       });
       updateSuperCoins(10);
-      
-      alert("You have successfully ordered!");
+      alert("Order placed successfully! Earned +10 SuperCoins.");
       switchView('orders');
     }
 
@@ -400,23 +418,28 @@
       renderOrders();
     }
 
+    function returnOrder(orderId) {
+      alert(`Return requested for order ${orderId}. Pickup scheduled within 24 hours.`);
+    }
+
     function renderOrders() {
       const container = document.getElementById("orders-list");
       if(orders.length === 0) {
-        container.innerHTML = `<div class="bg-white p-6 rounded-xl text-center text-gray-500">No active orders found.</div>`;
+        container.innerHTML = `<div class="bg-white p-7 rounded-3xl text-center text-gray-400 text-sm shadow-xs border border-gray-100">No active orders found.</div>`;
         return;
       }
       container.innerHTML = orders.map(o => `
-        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div class="bg-white p-5 rounded-3xl shadow-xs border border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <span class="text-xs font-bold text-blue-600">${o.id}</span>
-            <h4 class="font-bold text-gray-800 text-sm">${o.product}</h4>
-            <p class="text-xs text-gray-500">Price: ₹${o.price} | Date: ${o.date}</p>
-            <p class="text-xs text-indigo-600 font-semibold mt-1">📍 Tracking Location: ${o.location}</p>
+            <span class="text-xs font-bold text-indigo-600">${o.id}</span>
+            <h4 class="font-bold text-gray-900 text-sm mt-0.5">${o.product}</h4>
+            <p class="text-xs text-gray-500 mt-1">Price: ₹${o.price} | Date: ${o.date}</p>
+            <p class="text-xs text-blue-600 font-semibold mt-1">📍 Tracking: ${o.location}</p>
           </div>
-          <div class="flex items-center space-x-3 w-full md:w-auto justify-between">
-            <span class="bg-green-100 text-green-800 text-xs px-2.5 py-1 rounded-full font-semibold">${o.status}</span>
-            <button onclick="cancelOrder('${o.id}')" class="bg-red-50 text-red-600 hover:bg-red-100 text-xs px-3 py-1.5 rounded font-bold border border-red-200">Cancel Order</button>
+          <div class="flex items-center space-x-2.5 w-full md:w-auto justify-between pt-2 md:pt-0 border-t md:border-0 border-gray-100">
+            <span class="bg-emerald-50 text-emerald-700 text-[11px] px-3 py-1 rounded-full font-bold">${o.status}</span>
+            <button onclick="returnOrder('${o.id}')" class="bg-amber-50 text-amber-700 hover:bg-amber-100 text-xs px-3 py-1.5 rounded-xl font-bold border border-amber-200 transition">Return</button>
+            <button onclick="cancelOrder('${o.id}')" class="bg-rose-50 text-rose-600 hover:bg-rose-100 text-xs px-3 py-1.5 rounded-xl font-bold border border-rose-200 transition">Cancel</button>
           </div>
         </div>
       `).join('');
@@ -429,7 +452,7 @@
       }
       const wheel = document.getElementById("spin-wheel");
       const text = document.getElementById("spin-result-text");
-      wheel.style.transform = `rotate(${Math.floor(1000 + Math.random() * 1000)}deg)`;
+      wheel.style.transform = `rotate(${Math.floor(1200 + Math.random() * 1000)}deg)`;
       
       setTimeout(() => {
         spinsLeftToday--;
@@ -440,7 +463,7 @@
         }
         const won = [10, 25, 50, 100][Math.floor(Math.random() * 4)];
         updateSuperCoins(won);
-        text.innerText = `Won +${won} Coins!`;
+        text.innerText = `Won +${won}!`;
         alert(`Congratulations! You won ${won} SuperCoins! (${spinsLeftToday} spins left today)`);
       }, 1000);
     }
@@ -454,19 +477,20 @@
       const msgBox = document.getElementById("ai-messages");
       const text = input.value.trim();
       if(!text) return;
-      msgBox.innerHTML += `<div class="bg-gray-200 text-gray-800 p-2 rounded-lg max-w-[80%] ml-auto text-right">${text}</div>`;
+      msgBox.innerHTML += `<div class="bg-gray-100 text-gray-900 p-2.5 rounded-2xl max-w-[85%] ml-auto text-right font-medium">${text}</div>`;
       input.value = "";
       
       setTimeout(() => {
-        let reply = "I'm Nikhil AI! Type any keyword or price (e.g. 1199) in the search bar to scan our 3M+ items instantly.";
+        let reply = "I am Nikhil AI! Type any item like skincare, bikes, or bags in the search bar to scan our 5,000+ items instantly.";
         const lower = text.toLowerCase();
-        if(lower.includes("bag")) reply = "We have thousands of unique backpacks and laptop bags priced between ₹1000-₹1200!";
-        else if(lower.includes("dress") || lower.includes("fashion")) reply = "Explore our massive collection of dresses and fashionwear in the category tabs!";
-        else if(lower.includes("order")) reply = "You can view and track your delivery status under the Orders tab in the bottom bar!";
+        if(lower.includes("bag")) reply = "We have premium backpacks and laptop bags! Type 'bag' in search to view them.";
+        else if(lower.includes("skin") || lower.includes("cream")) reply = "Explore our hydrating facial serums and skincare essentials in the skincare tab!";
+        else if(lower.includes("bike") || lower.includes("cycle")) reply = "Check out our high-performance mountain and electric bicycles under the bikes category!";
+        else if(lower.includes("order") || lower.includes("track")) reply = "You can view, track, cancel or request returns for your orders under the Orders tab!";
         
-        msgBox.innerHTML += `<div class="bg-blue-100 text-blue-900 p-2 rounded-lg max-w-[80%]">${reply}</div>`;
+        msgBox.innerHTML += `<div class="bg-indigo-50 text-indigo-950 p-3 rounded-2xl max-w-[85%] font-medium leading-relaxed shadow-xs">${reply}</div>`;
         msgBox.scrollTop = msgBox.scrollHeight;
-      }, 500);
+      }, 400);
     }
 
     document.addEventListener("DOMContentLoaded", () => {
