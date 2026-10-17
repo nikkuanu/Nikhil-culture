@@ -9,11 +9,15 @@
 </head>
 <body class="bg-gray-100 min-h-screen pb-24">
 
-  <!-- AUTH MODAL (Phone Number Login/Signup) -->
+  <  <!-- AUTH MODAL (Name, Phone, and CR7 Logo) -->
   <div id="auth-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
     <div class="bg-white p-6 rounded-2xl shadow-2xl max-w-sm w-full text-center">
-      <h2 class="text-xl font-bold text-gray-800 mb-2">Welcome to Nikhilfx</h2>
-      <p class="text-xs text-gray-500 mb-6">Enter your phone number to sign up or log in instantly.</p>
+      <div class="w-20 h-20 mx-auto mb-3 rounded-full overflow-hidden border-2 border-blue-600 shadow-md">
+        <img src="https://image.api.playstation.com/vulcan/ap/rnd/202211/0711/kh4ZIqKtQzUnG393E2p9Y74p.png" alt="Cristiano Ronaldo CR7" class="w-full h-full object-cover">
+      </div>
+      <h2 class="text-xl font-bold text-gray-800 mb-1">CR7 x Nikhilfx</h2>
+      <p class="text-xs text-gray-500 mb-4">Enter your name and phone number to sign up or log in.</p>
+      <input id="auth-name-input" type="text" placeholder="Enter your full name" class="w-full border px-3 py-2 rounded-lg text-sm mb-3 focus:outline-none focus:border-blue-600">
       <input id="auth-phone-input" type="tel" maxlength="10" placeholder="Enter 10-digit mobile number" class="w-full border px-3 py-2 rounded-lg text-sm mb-4 focus:outline-none focus:border-blue-600">
       <button onclick="handlePhoneAuth()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg shadow">Continue</button>
     </div>
@@ -243,37 +247,28 @@
         name: batchNum === 1 ? baseItem.name : `${baseItem.name} Edition #${batchNum}`,
         category: pool.cat,
         price: 1000 + (id % 201),
-        image: baseItem.img,
-        description: `Verified authentic Nikhilfx catalog item #${id}. Superior quality build, precision crafted with elite features.`
-      };
-    }
-
-    function getProductsSlice(limit = 100, category = 'all') {
-      let results = [];
-      for (let i = 1; i <= totalSimulatedProducts && results.length < limit; i++) {
-        let p = getProductById(i);
-        if (category === 'all' || p.category === category) {
-          results.push(p);
-        }
-      }
-      return results;
-    }    function handlePhoneAuth() {
+            function handlePhoneAuth() {
+      const nameInput = document.getElementById("auth-name-input").value.trim();
       const phoneInput = document.getElementById("auth-phone-input").value.trim();
+      
+      if(!nameInput) {
+        alert("Please enter your name.");
+        return;
+      }
       if(phoneInput.length !== 10 || isNaN(phoneInput)) {
         alert("Please enter a valid 10-digit mobile number.");
         return;
       }
+      
       currentUserPhone = "+91 " + phoneInput;
+      document.getElementById("account-name").innerText = nameInput;
       document.getElementById("account-phone").innerText = currentUserPhone;
       document.getElementById("auth-btn-header").innerText = "CR7 Verified";
       document.getElementById("auth-modal").classList.add("hidden");
       
-      alert("You joined successfully!");
+      alert("Successful login! Welcome to Nikhil's World.");
     }
 
-
-    let currentCategory = 'all';
-    let orders = [
       { id: "ORD98231", product: "Classic Leather Backpack", price: 1199, status: "Out for Delivery", date: "Today", location: "Hub - Bengaluru" }
     ];
 
@@ -477,4 +472,13 @@
     });
   </script>
 </body>
-</html>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderProducts(getProductsSlice(100, 'all'));
+      setupSearch();
+      
+      // Automatically pop up login/signup modal after 30 seconds
+      setTimeout(() => {
+        openAuthModal();
+      }, 30000);
+    });
+/html>
