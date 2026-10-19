@@ -156,11 +156,11 @@
     </button>
   </nav>
 
-  <!-- SWEET VOICE AI ASSISTANT WIDGET -->
+  <!-- NIKHILFX SWEET VOICE AI ASSISTANT WIDGET -->
   <div class="fixed bottom-20 right-4 z-50 flex flex-col items-end">
     <!-- Language Selection Popup -->
     <div id="voice-lang-box" class="hidden mb-3 w-72 bg-white rounded-3xl shadow-2xl border border-gray-200 p-4 text-center">
-      <h3 class="text-sm font-bold text-gray-900 mb-1">🌸 Sweet Voice AI Assistant</h3>
+      <h3 class="text-sm font-bold text-gray-900 mb-1">🌸 Nikhilfx Sweet Voice AI</h3>
       <p class="text-[11px] text-gray-500 mb-3">Please select your preferred language:</p>
       <div class="grid grid-cols-2 gap-2">
         <button onclick="setVoiceLanguage('en-IN', 'English')" class="bg-pink-50 hover:bg-pink-600 hover:text-white text-pink-900 text-xs font-bold py-2 px-3 rounded-xl transition border border-pink-100">English</button>
@@ -174,13 +174,13 @@
     <div id="voice-active-box" class="hidden mb-3 w-80 bg-slate-900 text-white rounded-3xl shadow-2xl border border-pink-500/40 p-5 text-center relative overflow-hidden">
       <div class="absolute -right-10 -top-10 w-32 h-32 bg-pink-500/20 rounded-full blur-xl"></div>
       <div class="flex justify-between items-center mb-3 relative z-10">
-        <span class="text-xs uppercase tracking-wider font-extrabold text-pink-400">Sweet AI (<span id="current-lang-label">English</span>)</span>
+        <span class="text-xs uppercase tracking-wider font-extrabold text-pink-400">Nikhilfx AI (<span id="current-lang-label">English</span>)</span>
         <button onclick="closeVoiceAssistant()" class="text-gray-400 hover:text-white text-base font-bold">&times;</button>
       </div>
       <div class="w-16 h-16 mx-auto my-4 rounded-full bg-gradient-to-tr from-pink-500 to-rose-500 flex items-center justify-center shadow-lg voice-pulse border-2 border-pink-300 relative z-10">
         <span class="text-2xl">💖</span>
       </div>
-      <p id="voice-status-text" class="text-xs font-semibold text-pink-200 mb-2 relative z-10">Listening with love...</p>
+      <p id="voice-status-text" class="text-xs font-semibold text-pink-200 mb-2 relative z-10">Listening carefully...</p>
       <div id="voice-transcript" class="bg-black/40 p-3 rounded-xl text-xs text-gray-300 min-h-[40px] max-h-[80px] overflow-y-auto mb-4 border border-white/10 relative z-10 italic">"..."</div>
       <button onclick="stopVoiceListening()" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold py-2 px-4 rounded-xl shadow transition relative z-10 w-full">Stop Assistant</button>
     </div>
@@ -188,7 +188,7 @@
     <!-- Floating Toggle Button -->
     <button onclick="toggleVoiceAssistant()" class="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 hover:scale-105 transition border-2 border-amber-300">
       <span class="text-base">💖</span>
-      <span class="text-xs font-bold tracking-wide">Sweet AI Voice</span>
+      <span class="text-xs font-bold tracking-wide">Nikhilfx Voice AI</span>
     </button>
   </div>
 
@@ -488,13 +488,12 @@
       }, 1000);
     }
 
-    // --- SWEET VOICE AI ASSISTANT LOGIC ---
+    // --- NIKHILFX SWEET VOICE AI ASSISTANT LOGIC ---
     let recognition = null;
     let selectedLang = 'en-IN';
     let isVoiceActive = false;
     let sweetVoices = [];
 
-    // Load available voices and prefer sweet female-sounding voices
     function loadSweetVoices() {
       if (!('speechSynthesis' in window)) return;
       sweetVoices = window.speechSynthesis.getVoices();
@@ -526,10 +525,10 @@
       document.getElementById("voice-lang-box").classList.add("hidden");
       document.getElementById("voice-active-box").classList.remove("hidden");
       
-      let welcomeMsg = "Hello sweetheart! Welcome to Nikhilfx. How can I lovingly help you today?";
-      if(langCode === 'hi-IN') welcomeMsg = "नमस्ते जान! निखिलएफएक्स में आपका स्वागत है। आज मैं आपकी किस प्यारी चीज़ में मदद कर सकती हूँ?";
-      if(langCode === 'te-IN') welcomeMsg = "హలో బంగారు! నిఖిల్ఎఫ్ఎక్స్ కు స్వాగతం. ఈరోజు నేను మీకు ఎలా సాయం చేయగలను?";
-      if(langCode === 'es-ES') welcomeMsg = "¡Hola cariño! Bienvenido a Nikhilfx. ¿Cómo puedo ayudarte hoy con mucho amor?";
+      let welcomeMsg = "Hi! I am Nikhilfx, your sweet personal assistant. Tell me anything you want, I am listening!";
+      if(langCode === 'hi-IN') welcomeMsg = "नमस्ते! मैं निखिलएफएक्स हूँ, आपकी प्यारी असिस्टेंट। आप मुझसे कुछ भी पूछ सकते हैं, मैं सुन रही हूँ!";
+      if(langCode === 'te-IN') welcomeMsg = "హలో! నేను నిఖిల్ఎఫ్ఎక్స్, మీ అసిస్టెంట్. మీరు నన్ను ఏమైనాడగవచ్చు, నేను వింటున్నాను!";
+      if(langCode === 'es-ES') welcomeMsg = "¡Hola! Soy Nikhilfx, tu asistente. ¡Dime lo que quieras!";
 
       speakSweetly(welcomeMsg, () => {
         startVoiceListening();
@@ -544,10 +543,9 @@
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = selectedLang;
-      utterance.rate = 0.95; // Slightly slower for a warm, clear, sweet tone
-      utterance.pitch = 1.3; // Higher pitch for clear and sweet female voice character
+      utterance.rate = 0.95; 
+      utterance.pitch = 1.35; // Sweet, clear female voice tone
 
-      // Try to select a sweet female voice if available in browser
       if(sweetVoices.length === 0) {
         sweetVoices = window.speechSynthesis.getVoices();
       }
@@ -579,7 +577,7 @@
       recognition.maxAlternatives = 1;
 
       isVoiceActive = true;
-      document.getElementById("voice-status-text").innerText = "Listening sweetly... Speak now!";
+      document.getElementById("voice-status-text").innerText = "Listening... Speak your mind!";
 
       recognition.onresult = (event) => {
         const speechResult = event.results[0][0].transcript;
@@ -588,7 +586,7 @@
       };
 
       recognition.onerror = (event) => {
-        document.getElementById("voice-status-text").innerText = "Didn't catch that clearly. Please speak again!";
+        document.getElementById("voice-status-text").innerText = "Listening continuously... Speak anytime!";
       };
 
       recognition.onend = () => {
@@ -613,81 +611,66 @@
       document.getElementById("voice-active-box").classList.add("hidden");
     }
 
+    // Dynamic contextual response for whatever the user speaks about
     function processSweetResponse(query) {
       const lower = query.toLowerCase();
-      let reply = "Of course! I am right here for you. Tell me what items you want to explore.";
+      let reply = "";
 
-      if(selectedLang === 'hi-IN') {
-        reply = "ज़रूर! मैं आपके लिए यहीं हूँ। बताइए आपको कौन सी चीज़ें देखनी हैं?";
-        if(lower.includes("bag") || lower.includes("बैग")) {
-          filterCategory('fashion');
-          document.getElementById("search-input").value = "bag";
-          reply = "मैंने आपके लिए सुंदर और प्यारे बैग्स दिखा दिए हैं!";
-        } else if(lower.includes("skin") || lower.includes("cream") || lower.includes("स्किन") || lower.includes("क्रीम")) {
-          filterCategory('skincare');
-          document.getElementById("search-input").value = "skincare";
-          reply = "ज़रूर! आपकी खूबसूरती के लिए शानदार स्किनकेयर प्रोडक्ट्स ओपन कर दिए हैं।";
-        } else if(lower.includes("bike") || lower.includes("cycle") || lower.includes("बाइक")) {
-          filterCategory('bikes');
-          document.getElementById("search-input").value = "bike";
-          reply = "यह लीजिए! आपके लिए शानदार बाइक्स और साइकिल्स दिखा दी हैं।";
-        } else if(lower.includes("order") || lower.includes("ऑर्डर")) {
-          switchView('orders');
-          reply = "जी बिल्कुल! आपके सारे ऑर्डर्स और ट्रैकिंग डिटेल्स यहाँ हैं।";
-        }
-      } else if(selectedLang === 'te-IN') {
-        reply = "తప్పకుండా! మీకోసం నేను ఇక్కడే ఉన్నాను. మీకు ఏ వస్తువులు కావాలో చెప్పండి.";
-        if(lower.includes("bag") || lower.includes("బ్యాగ్")) {
-          filterCategory('fashion');
-          document.getElementById("search-input").value = "bag";
-          reply = "మీకోసం అందమైన బ్యాగులు తెరిచాను చూడండి!";
-        } else if(lower.includes("skin") || lower.includes("cream") || lower.includes("స్కిన్")) {
-          filterCategory('skincare');
-          document.getElementById("search-input").value = "skincare";
-          reply = "ఖచ్చితంగా! మీ అందం కోసం అద్భుతమైన స్కిన్‌కేర్ ప్రొడక్ట్స్ చూపించాను.";
-        } else if(lower.includes("bike") || lower.includes("cycle") || lower.includes("బైక్")) {
-          filterCategory('bikes');
-          document.getElementById("search-input").value = "bike";
-          reply = "ఇదిగోండి! మీకోసం అద్భుతమైన బైకులు సిద్ధంగా ఉన్నాయి.";
-        } else if(lower.includes("order") || lower.includes("ఆర్డర్")) {
-          switchView('orders');
-          reply = "ఖచ్చితంగా! మీ ఆర్డర్స్ మరియు ట్రాకింగ్ వివరాలు ఇక్కడ ఉన్నాయి.";
-        }
-      } else {
-        // English / Universal sweet conversational intelligence
-        if(lower.includes("bag") || lower.includes("backpack") || lower.includes("handbag")) {
-          filterCategory('fashion');
-          document.getElementById("search-input").value = "bag";
-          reply = "Aww, I have brought out the most gorgeous bags and backpacks just for you!";
-        } else if(lower.includes("skin") || lower.includes("cream") || lower.includes("serum") || lower.includes("face wash")) {
-          filterCategory('skincare');
-          document.getElementById("search-input").value = "skincare";
-          reply = "Glowing skin is everything! Here are our best radiant skincare products for you sweetheart.";
-        } else if(lower.includes("bike") || lower.includes("cycle") || lower.includes("bicycle")) {
-          filterCategory('bikes');
-          document.getElementById("search-input").value = "bike";
-          reply = "Ready for an adventure? Here are our finest sports bikes and mountain cycles!";
-        } else if(lower.includes("laptop") || lower.includes("electronic") || lower.includes("earbuds") || lower.includes("watch")) {
-          filterCategory('electronics');
-          document.getElementById("search-input").value = "electronics";
-          reply = "Opening up our amazing high-tech electronics collection right away!";
-        } else if(lower.includes("order") || lower.includes("tracking") || lower.includes("status")) {
-          switchView('orders');
-          reply = "Let me show you your order and live tracking status with pleasure!";
-        } else if(lower.includes("spin") || lower.includes("game") || lower.includes("coin")) {
-          switchView('play');
-          reply = "Yay! Let's win some exciting SuperCoins in the game zone together!";
-        } else if(lower.includes("hi") || lower.includes("hello") || lower.includes("hey")) {
-          reply = "Hello sweetheart! How can I make your day and shopping experience extra wonderful?";
-        } else {
-          reply = `You asked about "${query}". I am happy to help you find anything across our 5,000+ items or manage your orders!`;
+      // Check specific intents and navigate/respond accordingly
+      if(lower.includes("bag") || lower.includes("backpack") || lower.includes("handbag") || lower.includes("बैग") || lower.includes("బ్యాగ్")) {
+        filterCategory('fashion');
+        document.getElementById("search-input").value = "bag";
+        reply = `You asked about bags! I have opened our gorgeous fashion and bag collection for you.`;
+        if(selectedLang === 'hi-IN') reply = `आपने बैग के बारे में पूछा! मैंने आपके लिए सुंदर बैग्स और फैशन कलेक्शन दिखा दिया है।`;
+        if(selectedLang === 'te-IN') reply = `మీరు బ్యాగుల గురించి అడిగారు! మీకోసం ఫ్యాషన్ మరియు బ్యాగ్ కలెక్షన్ తెరిచాను.`;
+      } 
+      else if(lower.includes("skin") || lower.includes("cream") || lower.includes("serum") || lower.includes("face wash") || lower.includes("स्किन") || lower.includes("क्रीम") || lower.includes("స్కిన్")) {
+        filterCategory('skincare');
+        document.getElementById("search-input").value = "skincare";
+        reply = `Looking for radiant skincare? Here are our best facial serums and creams just for you!`;
+        if(selectedLang === 'hi-IN') reply = `त्वचा की देखभाल के लिए हमारे पास बेहतरीन स्किनकेयर प्रोडक्ट्स हैं, इन्हें देखिए!`;
+        if(selectedLang === 'te-IN') reply = `మీ చర్మ సంరక్షణ కోసం అద్భుతమైన స్కిన్‌కేర్ ప్రొడక్ట్స్ చూపించాను!`;
+      } 
+      else if(lower.includes("bike") || lower.includes("cycle") || lower.includes("bicycle") || lower.includes("बाइक") || lower.includes("బైక్")) {
+        filterCategory('bikes');
+        document.getElementById("search-input").value = "bike";
+        reply = `You wanted bikes! Check out these amazing mountain and electric bicycles.`;
+        if(selectedLang === 'hi-IN') reply = `आपने बाइक्स के बारे में कहा! ये लीजिए शानदार साइकिल्स और बाइक्स।`;
+        if(selectedLang === 'te-IN') reply = `మీరు బైకుల గురించి అడిగారు! ఇదిగో మీకోసం అద్భుతమైన సైకిల్స్ సిద్ధంగా ఉన్నాయి.`;
+      } 
+      else if(lower.includes("laptop") || lower.includes("electronic") || lower.includes("earbuds") || lower.includes("watch") || lower.includes("लैपटॉप") || lower.includes("लैपटॉप")) {
+        filterCategory('electronics');
+        document.getElementById("search-input").value = "electronics";
+        reply = `Exploring electronics! Here are our high-tech laptops, earbuds, and smartwatches.`;
+        if(selectedLang === 'hi-IN') reply = `इलेक्ट्रॉनिक्स गैजेट्स! हमारे पास बेहतरीन लैपटॉप्स और स्मार्टवॉच उपलब्ध हैं।`;
+        if(selectedLang === 'te-IN') reply = `ఎలక్ట్రానిక్స్! ల్యాప్‌టాప్‌లు మరియు స్మార్ట్‌వాచ్‌లు ఇక్కడ ఉన్నాయి.`;
+      } 
+      else if(lower.includes("order") || lower.includes("tracking") || lower.includes("status") || lower.includes("ऑर्डर") || lower.includes("ఆర్డర్")) {
+        switchView('orders');
+        reply = `Opening your orders and live tracking status right away!`;
+        if(selectedLang === 'hi-IN') reply = `मैं आपके ऑर्डर्स और लाइव ट्रैकिंग स्टेटस को स्क्रीन पर दिखा रही हूँ।`;
+        if(selectedLang === 'te-IN') reply = `మీ ఆర్డర్స్ మరియు లైవ్ ట్రాకింగ్ వివరాలను తెరుస్తున్నాను!`;
+      } 
+      else if(lower.includes("spin") || lower.includes("game") || lower.includes("coin") || lower.includes("स्पिन") || lower.includes("గేమ్")) {
+        switchView('play');
+        reply = `Let's play and win super coins in the game zone!`;
+        if(selectedLang === 'hi-IN') reply = `चलिए गेम जोन में स्पिन करते हैं और सुपरकोइंस जीतते हैं!`;
+        if(selectedLang === 'te-IN') reply = `గేమ్ జోన్‌లో తిప్పి సూపర్ కాయిన్స్ గెలుచుకుందాం!`;
+      } 
+      else {
+        // Universal conversational fallback that directly addresses whatever the user spoke
+        reply = `You mentioned "${query}". As Nikhilfx, I am happy to help you with that! You can explore our 5000+ items, check orders, or ask me about any product.`;
+        if(selectedLang === 'hi-IN') {
+          reply = `आपने कहा "${query}"। निखिलएफएक्स के रूप में, मैं इसमें आपकी पूरी मदद करूँगी! आप कोई भी उत्पाद खोज सकते हैं।`;
+        } else if(selectedLang === 'te-IN') {
+          reply = `మీరు "${query}" అని చెప్పారు. నిఖిల్ఎఫ్ఎక్స్ గా నేను మీకు సహాయం చేస్తాను!`;
         }
       }
 
-      document.getElementById("voice-status-text").innerText = "Sweetly responding...";
+      document.getElementById("voice-status-text").innerText = "Nikhilfx speaking...";
       speakSweetly(reply, () => {
         if(isVoiceActive) {
-          document.getElementById("voice-status-text").innerText = "Listening again with love...";
+          document.getElementById("voice-status-text").innerText = "Listening continuously... Speak anytime!";
         }
       });
     }
