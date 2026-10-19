@@ -9,6 +9,12 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     .nikhilfx-logo { font-family: 'Playfair Display', serif; }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 0.4; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .voice-pulse { animation: pulse-ring 2s infinite ease-in-out; }
   </style>
 </head>
 <body class="bg-gray-50 min-h-screen pb-28 text-gray-900">
@@ -150,25 +156,40 @@
     </button>
   </nav>
 
-  <!-- AI ASSISTANT -->
-  <div class="fixed bottom-20 right-4 z-50">
-    <button onclick="toggleAiChat()" class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 hover:scale-105 transition">
-      <span class="text-base">🤖</span>
-      <span class="text-xs font-bold tracking-wide">Nikhil AI</span>
-    </button>
-    <div id="ai-chat-box" class="hidden absolute bottom-16 right-0 w-80 bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col h-88">
-      <div class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white p-4 flex justify-between items-center text-sm font-bold shadow">
-        <span>Nikhil AI Assistant</span>
-        <button onclick="toggleAiChat()" class="text-white text-lg font-bold hover:opacity-80">&times;</button>
-      </div>
-      <div id="ai-messages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-gray-50/50">
-        <div class="bg-indigo-50 text-indigo-950 p-3 rounded-2xl max-w-[85%] font-medium leading-relaxed shadow-xs">Hello! Ask me to search any of our 5,000+ items across skincare, bikes, bags, or check order tracking!</div>
-      </div>
-      <div class="p-3 border-t border-gray-100 bg-white flex items-center space-x-2">
-        <input id="ai-input" type="text" placeholder="Ask AI anything..." class="flex-1 text-xs border border-gray-200 bg-gray-50 px-3 py-2.5 rounded-xl focus:outline-none focus:border-indigo-600">
-        <button onclick="sendAiMessage()" class="bg-indigo-600 text-white px-4 py-2.5 text-xs font-bold rounded-xl shadow hover:bg-indigo-700 transition">Send</button>
+  <!-- VOICE AI ASSISTANT WIDGET -->
+  <div class="fixed bottom-20 right-4 z-50 flex flex-col items-end">
+    <!-- Language Selection Popup -->
+    <div id="voice-lang-box" class="hidden mb-3 w-72 bg-white rounded-3xl shadow-2xl border border-gray-200 p-4 text-center">
+      <h3 class="text-sm font-bold text-gray-900 mb-1">🎙️ Select Voice Assistant Language</h3>
+      <p class="text-[11px] text-gray-500 mb-3">Choose your preferred language to start talking with Nikhil AI:</p>
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="setVoiceLanguage('en-IN', 'English')" class="bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-900 text-xs font-bold py-2 px-3 rounded-xl transition border border-indigo-100">English</button>
+        <button onclick="setVoiceLanguage('hi-IN', 'Hindi')" class="bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-900 text-xs font-bold py-2 px-3 rounded-xl transition border border-indigo-100">हिंदी (Hindi)</button>
+        <button onclick="setVoiceLanguage('te-IN', 'Telugu')" class="bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-900 text-xs font-bold py-2 px-3 rounded-xl transition border border-indigo-100">తెలుగు (Telugu)</button>
+        <button onclick="setVoiceLanguage('es-ES', 'Spanish')" class="bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-900 text-xs font-bold py-2 px-3 rounded-xl transition border border-indigo-100">Español</button>
       </div>
     </div>
+
+    <!-- Active Voice Assistant Modal / Overlay Box -->
+    <div id="voice-active-box" class="hidden mb-3 w-80 bg-slate-900 text-white rounded-3xl shadow-2xl border border-indigo-500/40 p-5 text-center relative overflow-hidden">
+      <div class="absolute -right-10 -top-10 w-32 h-32 bg-indigo-500/20 rounded-full blur-xl"></div>
+      <div class="flex justify-between items-center mb-3 relative z-10">
+        <span class="text-xs uppercase tracking-wider font-extrabold text-amber-400">Nikhil Voice AI (<span id="current-lang-label">English</span>)</span>
+        <button onclick="closeVoiceAssistant()" class="text-gray-400 hover:text-white text-base font-bold">&times;</button>
+      </div>
+      <div class="w-16 h-16 mx-auto my-4 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg voice-pulse border-2 border-indigo-400 relative z-10">
+        <span class="text-2xl">🎙️</span>
+      </div>
+      <p id="voice-status-text" class="text-xs font-semibold text-indigo-200 mb-2 relative z-10">Listening... Speak now!</p>
+      <div id="voice-transcript" class="bg-black/40 p-3 rounded-xl text-xs text-gray-300 min-h-[40px] max-h-[80px] overflow-y-auto mb-4 border border-white/10 relative z-10 italic">"..."</div>
+      <button onclick="stopVoiceListening()" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold py-2 px-4 rounded-xl shadow transition relative z-10 w-full">Stop Voice Assistant</button>
+    </div>
+
+    <!-- Floating Toggle Button -->
+    <button onclick="toggleVoiceAssistant()" class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 hover:scale-105 transition border-2 border-amber-300">
+      <span class="text-base">🎙️</span>
+      <span class="text-xs font-bold tracking-wide">Nikhil Voice AI</span>
+    </button>
   </div>
 
   <script>
@@ -346,7 +367,6 @@
             let p = getProductById(i);
             if(currentCategory !== 'all' && p.category !== currentCategory) continue;
             
-            // Strict query checking so bag search strictly yields bags
             if(p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query) || p.id.toString() === query) {
               matched.push(p);
             }
@@ -468,29 +488,148 @@
       }, 1000);
     }
 
-    function toggleAiChat() {
-      document.getElementById("ai-chat-box").classList.toggle("hidden");
+    // --- VOICE AI ASSISTANT LOGIC ---
+    let recognition = null;
+    let selectedLang = 'en-IN';
+    let isVoiceActive = false;
+
+    function toggleVoiceAssistant() {
+      const langBox = document.getElementById("voice-lang-box");
+      const activeBox = document.getElementById("voice-active-box");
+      if(!isVoiceActive && langBox.classList.contains("hidden") && activeBox.classList.contains("hidden")) {
+        langBox.classList.remove("hidden");
+      } else {
+        closeVoiceAssistant();
+      }
     }
 
-    function sendAiMessage() {
-      const input = document.getElementById("ai-input");
-      const msgBox = document.getElementById("ai-messages");
-      const text = input.value.trim();
-      if(!text) return;
-      msgBox.innerHTML += `<div class="bg-gray-100 text-gray-900 p-2.5 rounded-2xl max-w-[85%] ml-auto text-right font-medium">${text}</div>`;
-      input.value = "";
+    function closeVoiceAssistant() {
+      document.getElementById("voice-lang-box").classList.add("hidden");
+      document.getElementById("voice-active-box").classList.add("hidden");
+      stopVoiceListening();
+    }
+
+    function setVoiceLanguage(langCode, langName) {
+      selectedLang = langCode;
+      document.getElementById("current-lang-label").innerText = langName;
+      document.getElementById("voice-lang-box").classList.add("hidden");
+      document.getElementById("voice-active-box").classList.remove("hidden");
       
-      setTimeout(() => {
-        let reply = "I am Nikhil AI! Type any item like skincare, bikes, or bags in the search bar to scan our 5,000+ items instantly.";
-        const lower = text.toLowerCase();
-        if(lower.includes("bag")) reply = "We have premium backpacks and laptop bags! Type 'bag' in search to view them.";
-        else if(lower.includes("skin") || lower.includes("cream")) reply = "Explore our hydrating facial serums and skincare essentials in the skincare tab!";
-        else if(lower.includes("bike") || lower.includes("cycle")) reply = "Check out our high-performance mountain and electric bicycles under the bikes category!";
-        else if(lower.includes("order") || lower.includes("track")) reply = "You can view, track, cancel or request returns for your orders under the Orders tab!";
-        
-        msgBox.innerHTML += `<div class="bg-indigo-50 text-indigo-950 p-3 rounded-2xl max-w-[85%] font-medium leading-relaxed shadow-xs">${reply}</div>`;
-        msgBox.scrollTop = msgBox.scrollHeight;
-      }, 400);
+      let welcomeMsg = "Hello! Welcome to Nikhilfx. How can I assist you today?";
+      if(langCode === 'hi-IN') welcomeMsg = "नमस्ते! निखिलएफएक्स में आपका स्वागत है। मैं आपकी क्या सहायता कर सकता हूँ?";
+      if(langCode === 'te-IN') welcomeMsg = "నమస్కారం! నిఖిల్ఎఫ్ఎక్స్ కు స్వాగతం. నేను మీకు ఎలా సహాయం చేయగలను?";
+      if(langCode === 'es-ES') welcomeMsg = "¡Hola! Bienvenido a Nikhilfx. ¿Cómo puedo ayudarte hoy?";
+
+      speakText(welcomeMsg, () => {
+        startVoiceListening();
+      });
+    }
+
+    function speakText(text, callback) {
+      if (!('speechSynthesis' in window)) {
+        if(callback) callback();
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = selectedLang;
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      utterance.onend = () => {
+        if(callback) callback();
+      };
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function startVoiceListening() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert("Speech recognition is not supported in this browser. Please use Chrome or Edge.");
+        return;
+      }
+      
+      if(recognition) {
+        try { recognition.abort(); } catch(e){}
+      }
+
+      recognition = new SpeechRecognition();
+      recognition.lang = selectedLang;
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      isVoiceActive = true;
+      document.getElementById("voice-status-text").innerText = "Listening... Speak now!";
+
+      recognition.onresult = (event) => {
+        const speechResult = event.results[0][0].transcript;
+        document.getElementById("voice-transcript").innerText = `"${speechResult}"`;
+        processVoiceCommand(speechResult);
+      };
+
+      recognition.onerror = (event) => {
+        document.getElementById("voice-status-text").innerText = "Didn't catch that. Tap stop or talk again.";
+      };
+
+      recognition.onend = () => {
+        if(isVoiceActive) {
+          try { recognition.start(); } catch(e){}
+        }
+      };
+
+      try {
+        recognition.start();
+      } catch(e) {
+        console.error(e);
+      }
+    }
+
+    function stopVoiceListening() {
+      isVoiceActive = false;
+      if(recognition) {
+        try { recognition.abort(); } catch(e){}
+      }
+      window.speechSynthesis.cancel();
+      document.getElementById("voice-active-box").classList.add("hidden");
+    }
+
+    function processVoiceCommand(query) {
+      const lower = query.toLowerCase();
+      let reply = "I am listening to your request regarding our catalog or orders.";
+
+      if(lower.includes("bag") || lower.includes("backpack") || lower.includes("handbag")) {
+        filterCategory('fashion');
+        document.getElementById("search-input").value = "bag";
+        reply = "Showing elite bags and fashion items right away!";
+      } else if(lower.includes("skin") || lower.includes("cream") || lower.includes("serum") || lower.includes("face wash")) {
+        filterCategory('skincare');
+        document.getElementById("search-input").value = "skincare";
+        reply = "Navigating to premium skincare products!";
+      } else if(lower.includes("bike") || lower.includes("cycle") || lower.includes("bicycle")) {
+        filterCategory('bikes');
+        document.getElementById("search-input").value = "bike";
+        reply = "Opening mountain and electric bicycles inventory!";
+      } else if(lower.includes("laptop") || lower.includes("electronic") || lower.includes("earbuds") || lower.includes("watch")) {
+        filterCategory('electronics');
+        document.getElementById("search-input").value = "electronics";
+        reply = "Displaying cutting-edge electronics!";
+      } else if(lower.includes("order") || lower.includes("tracking") || lower.includes("status")) {
+        switchView('orders');
+        reply = "Opening your live orders and tracking details!";
+      } else if(lower.includes("spin") || lower.includes("game") || lower.includes("coin")) {
+        switchView('play');
+        reply = "Opening the spin wheel game zone!";
+      } else if(selectedLang === 'hi-IN') {
+        reply = "मैंने आपका अनुरोध सुन लिया है। कृपया बैग, स्किनकेयर या बाइक जैसे उत्पादों के बारे में कहें।";
+      } else if(selectedLang === 'te-IN') {
+        reply = "మీ అభ్యర్థన విన్నాను. దయచేసి బ్యాగులు, స్కిన్‌కేర్ లేదా బైకుల గురించి అడగండి.";
+      }
+
+      document.getElementById("voice-status-text").innerText = "Nikhil AI Responding...";
+      speakText(reply, () => {
+        if(isVoiceActive) {
+          document.getElementById("voice-status-text").innerText = "Listening again...";
+        }
+      });
     }
 
     document.addEventListener("DOMContentLoaded", () => {
